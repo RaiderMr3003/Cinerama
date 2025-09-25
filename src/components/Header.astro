@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import cineramaLogo from '../assets/cinerama.webp';
+import { Github, Menu, X } from '@lucide/astro';
+---
+
+<header class="fixed top-0 left-0 w-full backdrop-blur-md bg-white/50 shadow-md z-50 transition-all duration-300">
+	<div class="flex justify-between items-center py-4 px-8 max-w-[1120px] mx-auto">
+        <a href="/"><Image 
+			class="w-40 h-auto"
+			src={cineramaLogo}
+			alt="cinerama logo"
+			loading="eager"
+		/></a>
+
+		<button id="menu-btn" class="md:hidden text-dark hover:text-[#ed0000] transition-colors cursor-pointer">
+			<Menu size={30} />
+		</button>
+
+		<nav class="flex flex-row gap-x-15 opacity-80 hidden md:flex">
+			<a href="/" class="text-dark hover:text-[#ed0000] transition-colors">Inicio</a>
+			<a href="/cartelera" class="text-dark hover:text-[#ed0000] transition-colors">Cartelera</a>
+			<a href="/estrenos" class="text-dark hover:text-[#ed0000] transition-colors">Estrenos</a>			
+			<a href="/contacto" class="text-dark hover:text-[#ed0000] transition-colors">Contáctenos</a>
+		</nav>
+
+		<div class="flex gap-4 hidden md:flex">
+			<a 
+				href="https://github.com/RaiderMr3003" 
+				target="_blank" 
+				rel="icon-github" 
+				class="text-dark hover:text-[#ed0000] transition-colors"
+				aria-label="GitHub"
+			>
+				<Github size={20} />
+			</a>
+		</div>
+	</div>
+
+	<div id="mobile-menu" class="fixed top-0 left-0 w-full h-screen bg-black/90 flex flex-col items-center justify-center gap-6 text-white transition-transform duration-300 -translate-x-full">
+		<button id="close-btn" class="absolute top-6 right-8 text-white hover:text-[#ed0000] cursor-pointer">
+			<X size={30} />
+		</button>
+
+		<a href="/inicio" class="hover:text-[#ed0000] transition-colors text-lg">Inicio</a>
+		<a href="/cartelera" class="hover:text-[#ed0000] transition-colors text-lg">Cartelera</a>
+		<a href="/estrenos" class="hover:text-[#ed0000] transition-colors text-lg">Estrenos</a>
+		<a href="/contacto" class="hover:text-[#ed0000] transition-colors text-lg">Contáctenos</a>
+
+		{/* Iconos en móviles */}
+		<div class="flex gap-6">
+			<a href="https://github.com/RaiderMr3003" target="_blank" rel="icon-github" class="hover:text-[#ed0000] transition-colors">
+				<Github size={30} />
+			</a>
+		</div>
+	</div>
+	<div class="absolute bottom-0 left-0 w-full h-[4px] bg-gradient-to-r from-[#A50044] to-[#004D98] drop-shadow-lg"></div>
+	
+</header>
+<script defer>
+	window.onload = () => {
+	const menuBtn = document.getElementById('menu-btn');
+	const closeBtn = document.getElementById('close-btn');
+	const mobileMenu = document.getElementById('mobile-menu');
+
+	if (menuBtn && closeBtn && mobileMenu) {
+		menuBtn.addEventListener('click', () => {
+			mobileMenu.classList.remove('-translate-x-full');
+		});
+
+		closeBtn.addEventListener('click', () => {
+			mobileMenu.classList.add('-translate-x-full');
+		});
+	}
+};
+</script>
