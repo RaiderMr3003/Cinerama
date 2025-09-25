@@ -1,13 +1,14 @@
 ---
+import { Image } from "astro:assets";
 import cineramaLogo from '../assets/cinerama.webp';
 import { Github, Menu, X } from '@lucide/astro';
 ---
 
 <header class="fixed top-0 left-0 w-full backdrop-blur-md bg-white/50 shadow-md z-50 transition-all duration-300">
 	<div class="flex justify-between items-center py-4 px-8 max-w-[1120px] mx-auto">
-        <a href="/"><img 
+        <a href="/"><Image 
 			class="w-40 h-auto"
-			src={cineramaLogo.src}
+			src={cineramaLogo}
 			alt="cinerama logo"
 			loading="eager"
 		/></a>
