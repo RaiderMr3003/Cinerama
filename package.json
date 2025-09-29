@@ -12,6 +12,7 @@
     "@lucide/astro": "^0.544.0",
     "@tailwindcss/vite": "^4.1.13",
     "astro": "^5.13.11",
+    "astro-swiper": "^1.1.0",
     "tailwindcss": "^4.1.13"
   }
 }
