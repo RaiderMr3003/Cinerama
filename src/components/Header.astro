@@ -1,6 +1,7 @@
 ---
-import { Image } from "astro:assets";
 import cineramaLogo from "../assets/cineramaNoBG.png";
+
+import { Image } from "astro:assets";
 import { Menu, X, Github } from "@lucide/astro";
 ---
 
@@ -10,7 +11,7 @@ import { Menu, X, Github } from "@lucide/astro";
       <div class="flex items-center space-x-8">
         <a href="/"
           ><Image
-            class="w-40 h-auto"
+            class="w-50 h-auto"
             src={cineramaLogo}
             alt="cinerama logo"
             loading="eager"
@@ -18,9 +19,9 @@ import { Menu, X, Github } from "@lucide/astro";
         </a>
         
         <nav class="hidden md:flex space-x-6">
-          <a href="/" class="hover:text-[#ed0000] transition-colors">Inicio</a>
-          <a href="/cartelera" class="hover:text-[#ed0000] transition-colors">Cartelera</a>
-          <a href="/contacto" class="hover:text-[#ed0000] transition-colors">Contáctenos</a>
+          <a href="/" class="hover:text-[#ed0000] hover:underline transition-colors">Inicio</a>
+          <a href="/cartelera" class="hover:text-[#ed0000] hover:underline transition-colors">Cartelera</a>
+          <a href="/contacto" class="hover:text-[#ed0000] hover:underline transition-colors">Contáctenos</a>
         </nav>
       </div>
       <div class="hidden md:flex items-center space-x-4">
