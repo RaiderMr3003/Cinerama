@@ -1,8 +1,8 @@
 ---
-import cineramaLogo from "../assets/cineramaNoBG.png";
-
 import { Image } from "astro:assets";
 import { Menu, X, Github } from "@lucide/astro";
+
+import cineramaLogo from "../assets/cineramaNoBG.png";
 ---
 
 <header class="absolute top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/80 to-transparent text-white text-xl">
@@ -27,7 +27,7 @@ import { Menu, X, Github } from "@lucide/astro";
       <div class="hidden md:flex items-center space-x-4">
         <button class="p-2 hover:bg-white/10 rounded-full transition-colors">
           <a 
-				href="https://github.com/RaiderMr3003" 
+				href="https://github.com/RaiderMr3003/Cinerama" 
 				target="_blank" 
 				rel="icon-github" 
 				class="text-dark hover:text-[#ed0000] transition-colors"
@@ -54,8 +54,13 @@ import { Menu, X, Github } from "@lucide/astro";
 
 		{/* Iconos en móviles */}
 		<div class="flex gap-6">
-			<a href="https://github.com/RaiderMr3003" target="_blank" rel="icon-github" class="hover:text-[#ed0000] transition-colors">
-				<Github size={30} />
+			<a 
+				href="https://github.com/RaiderMr3003/Cinerama" 
+				target="_blank" 
+				rel="icon-github" 
+				class="hover:text-[#ed0000] transition-colors"
+				>
+					<Github size={30} />
 			</a>
 		</div>
 	</div>

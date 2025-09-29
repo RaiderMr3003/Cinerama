@@ -1,165 +1,116 @@
 ---
-import peli1 from '../assets/betterman.webp';
-import peli2 from '../assets/chainsawman.webp';
-import peli3 from '../assets/spiderman.webp';
-import peli4 from '../assets/endgame.webp';
-
 import { Image } from "astro:assets";
 import { Swiper, SwiperWrapper, SwiperSlide, SwiperButtonPrev, SwiperButtonNext } from "astro-swiper";
 import { Clock, Star, Calendar } from "@lucide/astro";
+
+import peli1 from "../assets/betterman.webp";
+import peli2 from "../assets/chainsawman.webp";
+import peli3 from "../assets/spiderman.webp";
+import peli4 from "../assets/endgame.webp";
+
+const movies = [
+  {
+    title: "Betterman",
+    subtitle: "Una película de Robbie Williams.",
+    date: "Diciembre 26, 2024",
+    duration: "135min",
+    rating: "5/5",
+    genre: "Musical",
+    trailer: "https://youtu.be/uTMvxhB4Zfw",
+    image: peli1,
+  },
+  {
+    title: "Chainsaw Man",
+    subtitle: "La Película: Arco de Reze",
+    date: "Septiembre 19, 2025",
+    duration: "100min",
+    rating: "4/5",
+    genre: "Anime",
+    trailer: "https://youtu.be/eRXMdJoXRGQ",
+    image: peli2,
+  },
+  {
+    title: "Spiderman",
+    subtitle: "Homecoming",
+    date: "Julio 07, 2017",
+    duration: "133min",
+    rating: "4/5",
+    genre: "Superheroes",
+    trailer: "https://youtu.be/rk-dF1lIbIg",
+    image: peli3,
+  },
+  {
+    title: "Avengers",
+    subtitle: "End Game",
+    date: "Abril 26, 2019",
+    duration: "181min",
+    rating: "5/5",
+    genre: "Superheroes",
+    trailer: "https://youtu.be/TcMBFSGVi1c",
+    image: peli4,
+  },
+];
 ---
+
 <Swiper
-options={{
-  autoplay: {
-    delay: 4000,
-    disableOnInteraction: false,
-    waitForTransition: false,
-  },
-  loop: true,
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-}}>
-<SwiperWrapper>
+  options={{
+    autoplay: {
+      delay: 3500,
+      disableOnInteraction: false,
+      waitForTransition: false,
+    },
+    loop: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  }}
+>
+  <SwiperWrapper>
+    {movies.map((movie) => (
+      <SwiperSlide>
+        <div class="relative w-screen h-screen">
+          <Image
+            src={movie.image}
+            class="w-full h-full object-cover"
+            alt={movie.title}
+            loading="eager"
+          />
 
-<SwiperSlide> 
-  <div class="relative w-screen h-screen">
-    <Image 
-      src={peli1} 
-      class="w-full h-full object-cover"
-      alt="peli1"
-      loading="eager"
-    /> 
+          <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
 
-    <div class="absolute inset-0 flex flex-col justify-center items-start text-white bg-black/70 pl-16">
-      <h1 class="text-3xl md:text-5xl lg:text-7xl font-bold">Betterman</h1>
-      <p class="text-sm md:text-lg mt-2">Una pelicula de Robbie Williams.</p>
-      <div class="flex flex-wrap items-center gap-6 mt-2 mb-4 text-sm">
-        <div class="flex items-center space-x-2">
-          <Calendar size={16} />
-          <span>Diciembre 26, 2024</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <Clock size={16} />
-          <span>135min</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <Star size={16} class="text-yellow-400" />
-          <span>5/5</span>
-        </div>
-        <span class="bg-blue-600 px-2 py-1 rounded text-xs">Musical</span>
-      </div>
-      <div>
-        <a href="https://youtu.be/uTMvxhB4Zfw" target="_blank"><button class="bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg" style="cursor:pointer;">Ver Trailer</button></a>
-      </div>
-    </div>
-  </div>
-</SwiperSlide>
+          <div class="absolute inset-0 flex flex-col justify-center items-start text-white bg-black/70 pl-16">
+            <h1 class="text-3xl md:text-5xl lg:text-7xl font-bold">{movie.title}</h1>
+            <p class="text-sm md:text-lg mt-2">{movie.subtitle}</p>
 
-<SwiperSlide> 
-  <div class="relative w-screen h-screen">
-    <Image 
-      src={peli2} 
-      class="w-full h-full object-cover"
-      alt="peli2"
-      loading="eager"
-    /> 
+            <div class="flex flex-wrap items-center gap-4 mt-2 mb-4 text-sm">
+              <div class="flex items-center space-x-2">
+                <Calendar size={16} />
+                <span>{movie.date}</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Clock size={16} />
+                <span>{movie.duration}</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Star size={16} class="text-yellow-400" />
+                <span>{movie.rating}</span>
+              </div>
+              <span class="bg-blue-600 px-2 py-1 rounded text-xs">{movie.genre}</span>
+            </div>
 
-    <div class="absolute inset-0 flex flex-col justify-center items-start text-white bg-black/70 pl-16">
-      <h1 class="text-3xl md:text-5xl lg:text-7xl font-bold">Chainsaw Man</h1>
-      <p class="text-sm md:text-lg mt-2">La Película: Arco de Reze</p>
-      <div class="flex flex-wrap items-center gap-6 mt-2 mb-4 text-sm">
-        <div class="flex items-center space-x-2">
-          <Calendar size={16} />
-          <span>Septiembre 19, 2025</span>
+            <div>
+              <a href={movie.trailer} target="_blank">
+                <button class="bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg" style="cursor:pointer;">
+                  Ver Trailer
+                </button>
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="flex items-center space-x-2">
-          <Clock size={16} />
-          <span>100min</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <Star size={16} class="text-yellow-400" />
-          <span>4/5</span>
-        </div>
-        <span class="bg-blue-600 px-2 py-1 rounded text-xs">Anime</span>
-      </div>
-      <div>
-        <a href="https://youtu.be/eRXMdJoXRGQ" target="_blank"><button class="bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg" style="cursor:pointer;">Ver Trailer</button></a>
-      </div>
-    </div>
-  </div>
-</SwiperSlide>
-
-<SwiperSlide> 
-  <div class="relative w-screen h-screen">
-    <Image 
-      src={peli3} 
-      class="w-full h-full object-cover"
-      alt="peli3"
-      loading="eager"
-    /> 
-
-    <div class="absolute inset-0 flex flex-col justify-center items-start text-white bg-black/70 pl-16">
-      <h1 class="text-3xl md:text-5xl lg:text-7xl font-bold">Spiderman</h1>
-      <p class="text-sm md:text-lg mt-2">Homecoming</p>
-      <div class="flex flex-wrap items-center gap-6 mt-2 mb-4 text-sm">
-        <div class="flex items-center space-x-2">
-          <Calendar size={16} />
-          <span>Julio 07, 2017</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <Clock size={16} />
-          <span>133min</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <Star size={16} class="text-yellow-400" />
-          <span>4/5</span>
-        </div>
-        <span class="bg-blue-600 px-2 py-1 rounded text-xs">Superheroes</span>
-      </div>
-      <div>
-        <a href="https://youtu.be/rk-dF1lIbIg" target="_blank"><button class="bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg" style="cursor:pointer;">Ver Trailer</button></a>
-      </div>
-    </div>
-  </div>
-</SwiperSlide>
-
-<SwiperSlide> 
-  <div class="relative w-screen h-screen">
-    <Image 
-      src={peli4} 
-      class="w-full h-full object-cover"
-      alt="peli4"
-      loading="eager"
-    /> 
-
-    <div class="absolute inset-0 flex flex-col justify-center items-start text-white bg-black/70 pl-16">
-      <h1 class="text-3xl md:text-5xl lg:text-7xl font-bold">Avengers</h1>
-      <p class="text-sm md:text-lg mt-2">End Game</p>
-      <div class="flex flex-wrap items-center gap-6 mt-2 mb-4 text-sm">
-        <div class="flex items-center space-x-2">
-          <Calendar size={16} />
-          <span>Abril 26, 2019</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <Clock size={16} />
-          <span>181min</span>
-        </div>
-        <div class="flex items-center space-x-2">
-          <Star size={16} class="text-yellow-400" />
-          <span>5/5</span>
-        </div>
-        <span class="bg-blue-600 px-2 py-1 rounded text-xs">Superheroes</span>
-      </div>
-      <div>
-        <a href="https://youtu.be/TcMBFSGVi1c" target="_blank"><button class="bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg" style="cursor:pointer;">Ver Trailer</button></a>
-      </div>
-    </div>
-  </div>
-</SwiperSlide>
-
-</SwiperWrapper>
-<SwiperButtonPrev />
-<SwiperButtonNext />
+      </SwiperSlide>
+    ))}
+  </SwiperWrapper>
+  <SwiperButtonPrev />
+  <SwiperButtonNext />
 </Swiper>
