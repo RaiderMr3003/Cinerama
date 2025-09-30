@@ -34,7 +34,7 @@ const imagenes = {
   }}
 >
   <SwiperWrapper>
-    {movies.map((movie) => (
+    {movies.slice(0, 4).map((movie) => (
       <SwiperSlide>
         <div class="relative w-screen h-screen">
           <Image

@@ -2,6 +2,7 @@
   {
     "title": "Betterman",
     "subtitle": "Una película de Robbie Williams.",
+    "description": "Better Man es una película biográfica que retrata la vida y carrera de Robbie Williams.",
     "date": "Diciembre 26, 2024",
     "duration": "135min",
     "rating": "5/5",
@@ -12,6 +13,7 @@
   {
     "title": "Chainsaw Man",
     "subtitle": "La Película: Arco de Reze",
+    "description": "Denji trabajaba como cazador de demonios para la yakuza, intentando saldar la deuda que heredó de sus padres, hasta que la yakuza lo traicionó y lo mandó matar.",
     "date": "Septiembre 19, 2025",
     "duration": "100min",
     "rating": "4/5",
@@ -22,6 +24,7 @@
   {
     "title": "Spiderman",
     "subtitle": "Homecoming",
+    "description": "Parker intenta equilibrar la vida de la escuela secundaria con ser Spider-Man mientras se enfrenta al Buitre.",
     "date": "Julio 07, 2017",
     "duration": "133min",
     "rating": "4/5",
@@ -32,11 +35,34 @@
   {
     "title": "Avengers",
     "subtitle": "End Game",
+    "description": "Los Vengadores restantes y sus aliados luchan por deshacer el desastroso chasquido de Thanos.",
     "date": "Abril 26, 2019",
     "duration": "181min",
     "rating": "5/5",
     "genre": "Superheroes",
     "trailer": "https://youtu.be/TcMBFSGVi1c",
     "image": "peli4"
+  },
+  {
+    "title": "Spiderman",
+    "subtitle": "No Way Home",
+    "description": "Tras descubrirse la identidad secreta de Peter Parker como Spider-Man, la vida del joven se vuelve una locura. Peter le pide ayuda al Doctor Strange para recuperar su vida, pero algo sale mal y provoca una fractura en el multiverso.",
+    "date": "Diciembre 17, 2021",
+    "duration": "148min",
+    "rating": "5/5",
+    "genre": "Superheroes",
+    "trailer": "https://youtu.be/rk-dF1lIbIg",
+    "image": "peli5"
+  },
+  {
+    "title": "F1",
+    "subtitle": "La Pelicula",
+    "description": "Sonny Hayes era el fenómeno más prometedor de la Formula 1 en los años 90 hasta que sufrió un accidente en la pista. Treinta años después, su excompañero, Ruben Cervantes, lo convence de volver para correr junto al talentoso novato Joshua Pearce.",
+    "date": "Junio 27, 2025",
+    "duration": "155min",
+    "rating": "4/5",
+    "genre": "Desportes",
+    "trailer": "https://youtu.be/TcMBFSGVi1c",
+    "image": "peli6"
   }
 ]
