@@ -1,16 +1,49 @@
 ---
-import cines from "../data/cines.json";
+import { Image } from "astro:assets";
 import { MapPin, Clapperboard, TvMinimal } from "@lucide/astro";
+
+import cines from "../data/cines.json";
+import pacifico from "../assets/pacifico.webp";
+import chimbote from "../assets/chimbote.webp";
+import cajamarca from "../assets/cajamarca.webp";
+import cusco from "../assets/cusco.webp";
+import huacho from "../assets/huacho.webp";
+import ica from "../assets/ica.webp";
+import minka from "../assets/minka.webp";
+import moyobamba from "../assets/moyobamba.webp";
+import piura from "../assets/piura.webp";
+import sol from "../assets/sol.webp";
+import tarapoto from "../assets/tarapoto.webp";
+
+const imagenes = {
+  pacifico,
+  chimbote,
+  cajamarca,
+  cusco,
+  huacho,
+  ica,
+  minka,
+  moyobamba,
+  piura,
+  sol,
+  tarapoto
+};
 ---
 
 <section class="my-10 px-4 mx-10 text-white">
   <header>
     <div class="text-center space-y-3">
       <h2 class="text-2xl md:text-4xl lg:text-6xl font-bold">Nuestros Cines</h2>
-      <p>Encuentra el cine perfecto en tu ciudad. Explora nuestras ubicaciones.</p>
+      <p>
+        Encuentra el cine perfecto en tu ciudad. Explora nuestras ubicaciones.
+      </p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-5 mb-5 sm:mx-5 md:mx-20">
-      <div class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-6 border border-blue-500/30 backdrop-blur-sm">
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-5 mb-5 sm:mx-5 md:mx-20"
+    >
+      <div
+        class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-6 border border-blue-500/30 backdrop-blur-sm"
+      >
         <div class="flex items-center gap-3">
           <MapPin class="w-8 h-8 text-blue-400" />
           <div>
@@ -20,7 +53,9 @@ import { MapPin, Clapperboard, TvMinimal } from "@lucide/astro";
         </div>
       </div>
 
-      <div class="bg-gradient-to-r from-green-600/20 to-blue-600/20 rounded-2xl p-6 border border-green-500/30 backdrop-blur-sm">
+      <div
+        class="bg-gradient-to-r from-green-600/20 to-blue-600/20 rounded-2xl p-6 border border-green-500/30 backdrop-blur-sm"
+      >
         <div class="flex items-center gap-3">
           <Clapperboard class="w-8 h-8 text-green-400" />
           <div>
@@ -30,7 +65,9 @@ import { MapPin, Clapperboard, TvMinimal } from "@lucide/astro";
         </div>
       </div>
 
-      <div class="bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl p-6 border border-purple-500/30 backdrop-blur-sm">
+      <div
+        class="bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-2xl p-6 border border-purple-500/30 backdrop-blur-sm"
+      >
         <div class="flex items-center gap-3">
           <TvMinimal class="w-8 h-8 text-purple-400" />
           <div>
@@ -43,12 +80,45 @@ import { MapPin, Clapperboard, TvMinimal } from "@lucide/astro";
   </header>
 </section>
 <main class="container mx-auto px-4 text-white">
-  {cines.map((cine) => (
-    <div class="flex items-center">
-      <MapPin class="w-10 text-blue-400" />
-      <h2 class="text-xl md:text-3xl lg:text-4xl font-bold ">
-        {cine.nombre}
-      </h2>
-    </div>
-  ))}
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+    {
+      cines
+        .sort((a, b) => a.orden - b.orden)
+        .map((cine) => (
+          <div>
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border border-slate-700 hover:border-blue-500/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/20 group">
+              <div class="absolute inset-0">
+                <Image
+                    src={imagenes[cine.img]}
+                    class="h-full object-cover opacity-70 group-hover:opacity-80 transition-opacity duration-500"
+                    alt={cine.nombre}
+                    loading="eager"
+                />
+              </div>
+              <div class="relative p-8 h-80 flex items-start flex-col justify-end z-10">
+                <div class="flex items-center gap-2 text-slate-400">
+                  <Clapperboard class="h-6 w-6 text-green-400" />
+                  <span class="text-xl md:text-3xl lg:text-4xl font-bold text-white">
+                    {cine.nombre}
+                  </span>
+                </div>
+                <div class="flex items-start gap-2 text-slate-300">
+                  <MapPin class="w-5 h-5 mt-0.5 flex-shrink-0 text-blue-400" />
+                  <span class="leading-relaxed">{cine.direccion}</span>
+                </div>
+                <div class="flex gap-3 mt-3">
+                  <a class="flex-1 bg-gradient-to-r from-blue-900 to-blue-700 hover:from-blue-800 hover:to-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                     href="/">
+                    Ver Cartelera
+                  </a>
+                  <a class="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-medium rounded-lg transition-colors duration-300 border border-white/20 cursor-pointer">
+                    Ubicación
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))
+    }
+  </div>
 </main>

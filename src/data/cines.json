@@ -7,7 +7,7 @@
     "ubigeo": "150101",
     "cc": "1001",
     "estado": "1",
-    "img": "minka.jpg",
+    "img": "minka",
     "orden": 2
   },
   {
@@ -18,7 +18,7 @@
     "ubigeo": "150101",
     "cc": "1001",
     "estado": "1",
-    "img": "pacifico.jpg",
+    "img": "pacifico",
     "orden": 1
   },
   {
@@ -29,7 +29,7 @@
     "ubigeo": "150101",
     "cc": "1002",
     "estado": "1",
-    "img": "ICAQUINDE.jpeg",
+    "img": "ica",
     "orden": 4
   },
   {
@@ -40,7 +40,7 @@
     "ubigeo": "170101",
     "cc": "1002",
     "estado": "1",
-    "img": "WhatsApp Image 2022-10-12 at 19.36.43.jpeg",
+    "img": "moyobamba",
     "orden": 9
   },
   {
@@ -52,7 +52,7 @@
     "cc": "1001",
     "estado": "1",
     "empresa": 4,
-    "img": "WhatsApp Image 2022-10-13 at 14.38.54.jpeg",
+    "img": "tarapoto",
     "orden": 5
   },
   {
@@ -63,7 +63,7 @@
     "ubigeo": "130101",
     "cc": "1002",
     "estado": "1",
-    "img": "WhatsApp Image 2022-10-13 at 22.06.44.jpeg",
+    "img": "sol",
     "orden": 7
   },
   {
@@ -74,7 +74,7 @@
     "ubigeo": "150101",
     "cc": "1001",
     "estado": "1",
-    "img": "WhatsApp Image 2022-10-13 at 22.48.12.jpeg",
+    "img": "chimbote",
     "orden": 3
   },
   {
@@ -85,7 +85,7 @@
     "ubigeo": "150101",
     "cc": "1001",
     "estado": "1",
-    "img": "WhatsApp Image 2022-10-13 at 22.48.43.jpeg",
+    "img": "cajamarca",
     "orden": 6
   },
   {
@@ -96,7 +96,7 @@
     "ubigeo": "170101",
     "cc": "1002",
     "estado": "1",
-    "img": "WhatsApp Image 2022-10-13 at 22.50.32.jpeg",
+    "img": "cusco",
     "orden": 10
   },
   {
@@ -107,7 +107,7 @@
     "ubigeo": "150201",
     "cc": "1003",
     "estado": "1",
-    "img": "IMG-20231027-WA0026.jpg",
+    "img": "huacho",
     "orden": 8
   },
   {
@@ -118,7 +118,7 @@
     "ubigeo": "201011",
     "cc": "1001",
     "estado": "1",
-    "img": "IMG-20240510-WA0017.jpg",
+    "img": "piura",
     "orden": 11
   }
 ]
