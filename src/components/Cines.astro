@@ -89,7 +89,7 @@ const imagenes = {
             <div class="relative overflow-hidden rounded-2xl bg-gradient-to-tr from-black via-slate-900 to-black border border-slate-700 hover:border-blue-500/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/20 group">
               <div class="absolute inset-0">
                 <Image
-                    src={imagenes[cine.img]}
+                    src= {imagenes[cine.img]}
                     class="h-full object-cover opacity-70 group-hover:opacity-80 transition-opacity duration-500"
                     alt={cine.nombre}
                     loading="eager"
@@ -98,13 +98,15 @@ const imagenes = {
               <div class="relative p-8 h-80 flex items-start flex-col justify-end z-10">
                 <div class="flex items-center gap-2 text-slate-400">
                   <Clapperboard class="h-6 w-6 text-green-400" />
-                  <span class="text-xl md:text-3xl lg:text-4xl font-bold text-white">
+                  <span class="text-xl md:text-3xl lg:text-4xl font-bold text-white text-shadow-lg">
                     {cine.nombre}
                   </span>
                 </div>
-                <div class="flex items-start gap-2 text-slate-300">
+                <div class="flex items-start gap-2 text-slate-200">
                   <MapPin class="w-5 h-5 mt-0.5 flex-shrink-0 text-blue-500" />
-                  <span class="leading-relaxed">{cine.direccion}</span>
+                  <span class="leading-relaxed text-shadow-lg">
+                    {cine.direccion}
+                  </span>
                 </div>
                 <div class="flex gap-3 mt-3">
                   <a class="flex-1 bg-gradient-to-r from-blue-900 to-blue-700 hover:from-blue-800 hover:to-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
