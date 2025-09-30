@@ -3,53 +3,20 @@ import { Image } from "astro:assets";
 import { Swiper, SwiperWrapper, SwiperSlide, SwiperButtonPrev, SwiperButtonNext } from "astro-swiper";
 import { Clock, Star, Calendar } from "@lucide/astro";
 
+import movies from "../data/movies.json";
+
+// Importar imágenes
 import peli1 from "../assets/betterman.webp";
 import peli2 from "../assets/chainsawman.webp";
 import peli3 from "../assets/spiderman.webp";
 import peli4 from "../assets/endgame.webp";
 
-const movies = [
-  {
-    title: "Betterman",
-    subtitle: "Una película de Robbie Williams.",
-    date: "Diciembre 26, 2024",
-    duration: "135min",
-    rating: "5/5",
-    genre: "Musical",
-    trailer: "https://youtu.be/uTMvxhB4Zfw",
-    image: peli1,
-  },
-  {
-    title: "Chainsaw Man",
-    subtitle: "La Película: Arco de Reze",
-    date: "Septiembre 19, 2025",
-    duration: "100min",
-    rating: "4/5",
-    genre: "Anime",
-    trailer: "https://youtu.be/eRXMdJoXRGQ",
-    image: peli2,
-  },
-  {
-    title: "Spiderman",
-    subtitle: "Homecoming",
-    date: "Julio 07, 2017",
-    duration: "133min",
-    rating: "4/5",
-    genre: "Superheroes",
-    trailer: "https://youtu.be/rk-dF1lIbIg",
-    image: peli3,
-  },
-  {
-    title: "Avengers",
-    subtitle: "End Game",
-    date: "Abril 26, 2019",
-    duration: "181min",
-    rating: "5/5",
-    genre: "Superheroes",
-    trailer: "https://youtu.be/TcMBFSGVi1c",
-    image: peli4,
-  },
-];
+const imagenes = {
+  peli1,
+  peli2,
+  peli3,
+  peli4
+};
 ---
 
 <Swiper
@@ -71,7 +38,7 @@ const movies = [
       <SwiperSlide>
         <div class="relative w-screen h-screen">
           <Image
-            src={movie.image}
+            src= {imagenes[movie.image]}
             class="w-full h-full object-cover"
             alt={movie.title}
             loading="eager"
