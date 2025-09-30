@@ -1,0 +1,124 @@
+[
+  {
+    "id": 1,
+    "nombre": "Cinerama Minka",
+    "descripcion": "Cinerama Minka",
+    "direccion": "AV ARGENTINA 3093 CC MINKA 2DO NIVEL CALLAO",
+    "ubigeo": "150101",
+    "cc": "1001",
+    "estado": "1",
+    "img": "minka.jpg",
+    "orden": 2
+  },
+  {
+    "id": 2,
+    "nombre": "Cinerama Pacifico",
+    "descripcion": "Cinerama Pacifico",
+    "direccion": "AV JOSE PARDO 121 MIRAFLORES - LIMA - LIMA",
+    "ubigeo": "150101",
+    "cc": "1001",
+    "estado": "1",
+    "img": "pacifico.jpg",
+    "orden": 1
+  },
+  {
+    "id": 3,
+    "nombre": "Cinerama Ica",
+    "descripcion": "Cinerama Ica Megaplaza",
+    "direccion": "AV LOS MAESTROS S/N - MEGAPLAZA ICA",
+    "ubigeo": "150101",
+    "cc": "1002",
+    "estado": "1",
+    "img": "ICAQUINDE.jpeg",
+    "orden": 4
+  },
+  {
+    "id": 4,
+    "nombre": "Cinerama Moyobamba",
+    "descripcion": "Cinerama Moyobamba",
+    "direccion": "JR MANUEL DEL AGUILA 542 MOYOBAMBA",
+    "ubigeo": "170101",
+    "cc": "1002",
+    "estado": "1",
+    "img": "WhatsApp Image 2022-10-12 at 19.36.43.jpeg",
+    "orden": 9
+  },
+  {
+    "id": 5,
+    "nombre": "Cinerama Tarapoto",
+    "descripcion": "Cinerama Tarapoto",
+    "direccion": "AV ALFONSO UGARTE 1360  TARAPOTO",
+    "ubigeo": "180101",
+    "cc": "1001",
+    "estado": "1",
+    "empresa": 4,
+    "img": "WhatsApp Image 2022-10-13 at 14.38.54.jpeg",
+    "orden": 5
+  },
+  {
+    "id": 6,
+    "nombre": "Cinerama Sol",
+    "descripcion": "Cinerama Sol",
+    "direccion": "AV SAN  MARTIN 727 CC PLAZA DEL SOL ICA - ICA - ICA",
+    "ubigeo": "130101",
+    "cc": "1002",
+    "estado": "1",
+    "img": "WhatsApp Image 2022-10-13 at 22.06.44.jpeg",
+    "orden": 7
+  },
+  {
+    "id": 7,
+    "nombre": "Cinerama Chimbote",
+    "descripcion": "Cinerama Chimbote",
+    "direccion": "\tAV. V. RAUL H. DE LA TORRE   MEGA PLAZA CHIMBOTE",
+    "ubigeo": "150101",
+    "cc": "1001",
+    "estado": "1",
+    "img": "WhatsApp Image 2022-10-13 at 22.48.12.jpeg",
+    "orden": 3
+  },
+  {
+    "id": 8,
+    "nombre": "Cinerama Cajamarca",
+    "descripcion": "Cinerama Cajamarca Megaplaza",
+    "direccion": "JR SOR MANUELA GIL 151 CC MEGAPLAZA CAJAMARCA",
+    "ubigeo": "150101",
+    "cc": "1001",
+    "estado": "1",
+    "img": "WhatsApp Image 2022-10-13 at 22.48.43.jpeg",
+    "orden": 6
+  },
+  {
+    "id": 9,
+    "nombre": "Cinerama Cusco",
+    "descripcion": "Cinerama Cusco",
+    "direccion": "CALLE CRUZ VERDE 347 CC IMPERIAL PLAZA CUSCO",
+    "ubigeo": "170101",
+    "cc": "1002",
+    "estado": "1",
+    "img": "WhatsApp Image 2022-10-13 at 22.50.32.jpeg",
+    "orden": 10
+  },
+  {
+    "id": 10,
+    "nombre": "Cinerama Huacho",
+    "descripcion": "Cinerama Huacho",
+    "direccion": "COLON 601 CC PLAZA DEL SOL 2DO NIVEL",
+    "ubigeo": "150201",
+    "cc": "1003",
+    "estado": "1",
+    "img": "IMG-20231027-WA0026.jpg",
+    "orden": 8
+  },
+  {
+    "id": 11,
+    "nombre": "Cinerama Piura",
+    "descripcion": "Cinerama Piura",
+    "direccion": "AV GRAU 1460 CC. PLAZA DEL SOL",
+    "ubigeo": "201011",
+    "cc": "1001",
+    "estado": "1",
+    "img": "IMG-20240510-WA0017.jpg",
+    "orden": 11
+  }
+]
