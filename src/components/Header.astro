@@ -3,83 +3,45 @@ import { Image } from "astro:assets";
 import { Menu, X, Github } from "@lucide/astro";
 
 import cineramaLogo from "../assets/cineramaNoBG.png";
+
+const { currentLocale } = Astro;
 ---
 
-<header class="absolute top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/80 to-transparent text-white text-xl">
-  <div class="container mx-auto px-4 py-6">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-8">
-        <a href="/"
-          ><Image
-            class="w-50 h-auto"
-            src={cineramaLogo}
-            alt="cinerama logo"
-            loading="eager"
-          />
-        </a>
-        
-        <nav class="hidden md:flex space-x-6">
-          <a href="/" class="hover:text-[#ed0000] hover:underline transition-colors">Inicio</a>
-          <a href="/#cines" class="hover:text-[#ed0000] hover:underline transition-colors">Cines</a>
-          <a href="/cartelera#pelis" class="hover:text-[#ed0000] hover:underline transition-colors">Cartelera</a>
-        </nav>
+<header id="header-nav" class="fixed top-0 w-full px-6 pt-4 pb-2 z-50 text-white text-xl">
+  <div class="max-w-8xl mx-auto flex items-center justify-between gap-16">
+    <a href="/">
+      <Image
+        class="w-50 h-auto"
+        src={cineramaLogo}
+        alt="cinerama logo"
+        loading="eager"
+      />
+    </a>
+    <nav id="header-menu" class="fixed w-full h-dvh inset-0 bg-black/90 md:text-xl lg:text-xl flex flex-col items-center justify-center gap-8 -translate-y-full transition-transform duration-300 target:translate-y-0 md:static md:h-[initial] md:bg-[initial] md:flex-row md:justify-between md:w-full md:translate-y-[initial]">
+      <div class="flex flex-col items-center gap-8 md:flex-row">
+      <a href="/" class="hover:text-[#ed0000] hover:underline transition-colors">Inicio</a>
+      <a href="/#cines" class="hover:text-[#ed0000] hover:underline transition-colors">Cines</a>
+      <a href="/cartelera#pelis" class="hover:text-[#ed0000] hover:underline transition-colors">Cartelera</a>
       </div>
-      <div class="hidden md:flex items-center space-x-4">
-        <button class="p-2 hover:bg-white/10 rounded-full transition-colors">
-          <a 
+      <div>
+      <button>
+        <a 
 				href="https://github.com/RaiderMr3003/Cinerama" 
 				target="_blank" 
 				rel="icon-github" 
 				class="text-dark hover:text-[#ed0000] transition-colors"
 				aria-label="GitHub"
-			>
-				<Github size={20} />
+			  >
+				<Github size={30} />
 			</a>
-        </button>   
+      </button>
       </div>
-      <button id="menu-btn" class="md:hidden text-dark hover:text-[#ed0000] transition-colors cursor-pointer">
-			<Menu size={30} />
-		</button>
-    </div>
+      <a href="#header-nav" class="md:hidden absolute top-6 right-6">
+        <X />
+      </a>
+    </nav>
+    <a href="#header-menu" class="md:hidden">
+      <Menu />
+    </a>
   </div>
-
-  <div id="mobile-menu" class="fixed top-0 left-0 w-full h-screen bg-black/90 flex flex-col items-center justify-center gap-6 text-white transition-transform duration-300 -translate-x-full">
-		<button id="close-btn" class="absolute top-6 right-8 text-white hover:text-[#ed0000] cursor-pointer">
-			<X size={30} />
-		</button>
-
-		<a href="/" class="hover:text-[#ed0000] transition-colors text-lg">Inicio</a>
-        <a href="/#cines" class="hover:text-[#ed0000] transition-colors text-lg">Cines</a>
-		<a href="/cartelera#pelis" class="hover:text-[#ed0000] transition-colors text-lg">Cartelera</a>
-
-		{/* Iconos en móviles */}
-		<div class="flex gap-6">
-			<a 
-				href="https://github.com/RaiderMr3003/Cinerama" 
-				target="_blank" 
-				rel="icon-github" 
-				class="hover:text-[#ed0000] transition-colors"
-				>
-					<Github size={30} />
-			</a>
-		</div>
-	</div>
-
 </header>
-<script defer>
-	window.onload = () => {
-	const menuBtn = document.getElementById('menu-btn');
-	const closeBtn = document.getElementById('close-btn');
-	const mobileMenu = document.getElementById('mobile-menu');
-
-	if (menuBtn && closeBtn && mobileMenu) {
-		menuBtn.addEventListener('click', () => {
-			mobileMenu.classList.remove('-translate-x-full');
-		});
-
-		closeBtn.addEventListener('click', () => {
-			mobileMenu.classList.add('-translate-x-full');
-		});
-	}
-};
-</script>
