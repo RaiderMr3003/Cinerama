@@ -1,32 +1,39 @@
-# Astro Starter Kit: Basics
+<div align="center">
+<img src="public/favicon.svg" height="50px" width="auto" /> 
+<h3>
+Cinerama - Re-Imaginado
+</h3>
+<p>Creado para mejorar mis habilidades.</p>
+</div>
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+<div align="center">
+    <a href="https://cinerama-seven.vercel.app/" target="_blank">
+        Preview
+    </a>
+    <span>&nbsp;✦&nbsp;</span>
+    <a href="#-commands">
+        Commands
+    </a>
+    <span>&nbsp;✦&nbsp;</span>
+    <a href="https://github.com/RaiderMr3003">
+        GitHub
+    </a>
+</div>
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+<p></p>
 
-## 🚀 Project Structure
+<div align="center">
 
-Inside of your Astro project, you'll see the following folders and files:
+![Astro Badge](https://img.shields.io/badge/Astro-BC52EE?logo=astro&logoColor=fff&style=flat)
+![HTML Bagde](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![JavaScript Badge](https://img.shields.io/badge/JavaScript-323330?style=flat&logo=javascript&logoColor=F7DF1E)
+![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat)
+![GitHub stars](https://img.shields.io/github/stars/RaiderMr3003/Cinerama)
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+</div>
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+> [!WARNING]
+> Esta página no es oficial. La página oficial es [**cinerama.com.pe**](https://www.cinerama.com.pe/).
 
 ## 🧞 Commands
 
