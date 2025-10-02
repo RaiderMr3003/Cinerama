@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Rank from '../components/RankAPI.astro';
+import MoviesSection from '../components/MoviesSection.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -10,7 +10,12 @@ import Rank from '../components/RankAPI.astro';
 	tittle="Bienvenido a Cinerama" 
 	description="Consulta tu cartelera local."
   >
-	<Rank />
+	<MoviesSection
+	  idsection="rank"
+	  title="Top 20"
+	  subtitle="20 peliculas mejor calificadas por la audiencia."
+	  fetchUrl="https://api.themoviedb.org/3/movie/top_rated?language=es-ES&page=1&region=PE"
+	/>
 </Layout>
 
 <style></style>

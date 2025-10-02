@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Premieres from '../components/PremieresAPI.astro';
+import MoviesSection from "../components/MoviesSection.astro";
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -10,7 +10,12 @@ import Premieres from '../components/PremieresAPI.astro';
 	tittle="Bienvenido a Cinerama" 
 	description="Consulta tu cartelera local."
   >
-	<Premieres />
+  <MoviesSection
+	idsection="encines"
+	title="Estrenos"
+	subtitle="Películas que se estrenaron en cines recientemente."
+	fetchUrl="https://api.themoviedb.org/3/movie/now_playing?language=es-ES&page=1&region=PE"
+	/>
 </Layout>
 
 <style></style>
