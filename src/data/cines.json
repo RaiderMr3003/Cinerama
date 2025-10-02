@@ -9,7 +9,8 @@
     "cc": "1001",
     "estado": "1",
     "img": "minka",
-    "orden": 2
+    "orden": 2,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_MINKA"
   },
   {
     "id": 2,
@@ -21,7 +22,8 @@
     "cc": "1001",
     "estado": "1",
     "img": "pacifico",
-    "orden": 1
+    "orden": 1,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_PACIFICO"
   },
   {
     "id": 3,
@@ -33,7 +35,8 @@
     "cc": "1002",
     "estado": "1",
     "img": "ica",
-    "orden": 4
+    "orden": 4,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_ICA"
   },
   {
     "id": 4,
@@ -45,7 +48,8 @@
     "cc": "1002",
     "estado": "1",
     "img": "moyobamba",
-    "orden": 9
+    "orden": 9,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_MOYOBAMBA"
   },
   {
     "id": 5,
@@ -58,7 +62,8 @@
     "estado": "1",
     "empresa": 4,
     "img": "tarapoto",
-    "orden": 5
+    "orden": 5,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_TARAPOTO"
   },
   {
     "id": 6,
@@ -70,7 +75,8 @@
     "cc": "1002",
     "estado": "1",
     "img": "sol",
-    "orden": 7
+    "orden": 7,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_SOL"
   },
   {
     "id": 7,
@@ -82,7 +88,8 @@
     "cc": "1001",
     "estado": "1",
     "img": "chimbote",
-    "orden": 3
+    "orden": 3,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_CHIMBOTE"
   },
   {
     "id": 8,
@@ -94,7 +101,8 @@
     "cc": "1001",
     "estado": "1",
     "img": "cajamarca",
-    "orden": 6
+    "orden": 6,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_CAJAMARCA"
   },
   {
     "id": 9,
@@ -106,7 +114,8 @@
     "cc": "1002",
     "estado": "1",
     "img": "cusco",
-    "orden": 10
+    "orden": 10,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_CUSCO"
   },
   {
     "id": 10,
@@ -118,7 +127,8 @@
     "cc": "1003",
     "estado": "1",
     "img": "huacho",
-    "orden": 8
+    "orden": 8,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_HUACHO"
   },
   {
     "id": 11,
@@ -130,6 +140,7 @@
     "cc": "1001",
     "estado": "1",
     "img": "piura",
-    "orden": 11
+    "orden": 11,
+    "url": "https://www.cinerama.com.pe/cartelera_cine/CINERAMA_PIURA"
   }
 ]
