@@ -1,0 +1,111 @@
+---
+import { Swiper, SwiperWrapper, SwiperSlide, SwiperButtonPrev, SwiperButtonNext } from "astro-swiper";
+import { Star, Calendar } from "@lucide/astro";
+
+export const prerender = true;
+export const revalidate = 60 * 60 * 48;
+
+const res = await fetch("https://api.themoviedb.org/3/trending/movie/week?language=es-ES", {
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${import.meta.env.TMDB_ACCESS_TOKEN}`
+  }
+});
+
+const data = await res.json();
+const movies = data.results.slice(0, 6);
+
+const genreRes = await fetch("https://api.themoviedb.org/3/genre/movie/list?language=es-ES", {
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${import.meta.env.TMDB_ACCESS_TOKEN}`
+  }
+});
+
+const genreData = await genreRes.json();
+const genres = genreData.genres;
+
+function getGenreNames(ids) {
+  return ids
+    .map(id => genres.find(g => g.id === id)?.name)
+    .filter(Boolean);
+}
+
+function formatDate(dateString: string) {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("es-ES", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}
+---
+
+
+<Swiper
+  options={{
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+      waitForTransition: false,
+    },
+    loop: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  }}
+>
+  <SwiperWrapper>
+    {movies.map((movie) => (
+      <SwiperSlide>
+        <div class="relative w-screen h-screen">
+          <img
+            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            class="w-full h-full object-cover"
+            alt={movie.title}
+            loading="eager"
+          />
+
+          <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
+
+          <div class="absolute inset-0 flex flex-col justify-center items-start text-white bg-black/70 px-16">
+            <h1 class="text-3xl md:text-5xl lg:text-7xl font-bold">{movie.title}</h1>
+            <p class="text-sm md:text-lg mt-2">
+              {movie.overview.length > 100 
+              ? movie.overview.slice(0, 100) + "..." 
+              : movie.overview}
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 mt-2 mb-4 text-sm">
+              <div class="flex items-center space-x-2">
+                <Calendar size={16} />
+                <span class="uppercase">{formatDate(movie.release_date)}</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <Star size={16} class="text-yellow-400" />
+                <span>{movie.vote_average}</span>
+              </div>
+              <span class="bg-blue-600 px-2 py-1 rounded text-xs">
+                {getGenreNames(movie.genre_ids).length > 0 
+                ? getGenreNames(movie.genre_ids).slice(0, 1).join(", ") 
+                : "Variado"}
+              </span>
+            </div>
+
+            <div>
+              <a href={`https://www.youtube.com/results?search_query=${movie.title} trailer`} target="_blank">
+                <button class="bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg" style="cursor:pointer;">
+                  Ver Trailer
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </SwiperSlide>
+    ))}
+  </SwiperWrapper>
+  <SwiperButtonPrev />
+  <SwiperButtonNext />
+</Swiper>
