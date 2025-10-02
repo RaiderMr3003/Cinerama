@@ -8,21 +8,32 @@ import Footer from '../components/Footer.astro';
 
 
 interface Props {
-	tittle: string;
+	title: string;
 	description?: string;
+	imageUrl?: string;
+	pageUrl?: string;
 }
 
-const { description, tittle } = Astro.props;
+const { description, title, imageUrl = '/og-cinerama.webp', pageUrl = 'https://cinerama-seven.vercel.app' } = Astro.props;
 ---
 <!doctype html>
 <html lang="es">
 	<head>
+		<!-- html meta tags -->
 		<meta charset="UTF-8" />
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{tittle}</title>
+		<title>{title}</title>
+
+		<!-- Open Graph / Facebook / Discord -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:url" content={pageUrl} />
+
 		<ClientRouter />
 	</head>
 	<body>
