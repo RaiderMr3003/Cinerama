@@ -14,7 +14,7 @@ interface Props {
 	pageUrl?: string;
 }
 
-const { description, title, imageUrl = '/og-cinerama.webp', pageUrl = 'https://cinerama-seven.vercel.app' } = Astro.props;
+const { description, title, imageUrl = '/og-cinerama.jpg', pageUrl = 'https://cinerama-seven.vercel.app' } = Astro.props;
 ---
 <!doctype html>
 <html lang="es">
@@ -28,11 +28,11 @@ const { description, title, imageUrl = '/og-cinerama.webp', pageUrl = 'https://c
 		<title>{title}</title>
 
 		<!-- Open Graph / Facebook / Discord -->
+		<meta property="og:url" content={pageUrl} />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={imageUrl} />
-		<meta property="og:url" content={pageUrl} />
 
 		<ClientRouter />
 	</head>
