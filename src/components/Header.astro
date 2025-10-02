@@ -19,23 +19,25 @@ const { currentLocale } = Astro;
     </a>
     <nav id="header-menu" class="fixed w-full h-dvh inset-0 bg-black/90 md:text-xl lg:text-xl flex flex-col items-center justify-center gap-8 -translate-y-full transition-transform duration-300 target:translate-y-0 md:static md:h-[initial] md:bg-[initial] md:flex-row md:justify-between md:w-full md:translate-y-[initial]">
       <div class="flex flex-col items-center gap-8 md:flex-row">
-      <a href="/" class="hover:text-[#ed0000] hover:underline transition-colors">Inicio</a>
-      <a href="/#cines" class="hover:text-[#ed0000] hover:underline transition-colors">Cines</a>
-      <a href="/peliculas#pelis" class="hover:text-[#ed0000] hover:underline transition-colors">Películas</a>
-      <a href="/estrenos" class="hover:text-[#ed0000] hover:underline transition-colors">Estrenos</a>
+        <a href="/" class="hover:text-[#ed0000] hover:underline transition-colors">Inicio</a>
+        <a href="/#cines" class="hover:text-[#ed0000] hover:underline transition-colors">Cines</a>
+        <a href="/estrenos#encines" class="hover:text-[#ed0000] hover:underline transition-colors">Estrenos</a>
+        <a href="/popular#top" class="hover:text-[#ed0000] hover:underline transition-colors">Populares</a>
+        <a href="/proximo#proximamente" class="hover:text-[#ed0000] hover:underline transition-colors">Proximamente</a>
+        <a href="/ranking#top" class="hover:text-[#ed0000] hover:underline transition-colors">Ranking</a>
       </div>
       <div>
-      <button>
-        <a 
-				href="https://github.com/RaiderMr3003/Cinerama" 
-				target="_blank" 
-				rel="icon-github" 
-				class="text-dark hover:text-[#ed0000] transition-colors"
-				aria-label="GitHub"
-			  >
-				<Github size={30} />
-			</a>
-      </button>
+        <button>
+          <a 
+            href="https://github.com/RaiderMr3003/Cinerama" 
+            target="_blank" 
+            rel="icon-github" 
+            class="text-dark hover:text-[#ed0000] transition-colors"
+            aria-label="GitHub"
+          >
+				    <Github size={30} />
+			    </a>
+        </button>
       </div>
       <a href="#header-nav" class="md:hidden absolute top-6 right-6">
         <X />
