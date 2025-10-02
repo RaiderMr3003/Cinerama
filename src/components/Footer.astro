@@ -1,22 +1,43 @@
 ---
-import { Github } from "@lucide/astro";
+import { Image } from "astro:assets";
+import { Github, CircleQuestionMark } from "@lucide/astro";
+import tmdbLogo from "../assets/PrimaryLong-TMBD.svg";
 ---
 
 <footer class="shadow-sm bg-gray-900">
-  <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-    <span class="text-sm sm:text-center text-gray-400"
-      >© Cinerama 2025. - Esta no es la web oficial.
-    </span>
-    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-400 sm:mt-0">
+  <div class="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex flex-col md:flex-row items-center gap-2 text-sm text-gray-400 text-center md:text-left">
+      <span>© Cinerama 2025 — Esta no es la web oficial.</span>
+      <div class="relative ml-1 group">
+        <CircleQuestionMark class="text-gray-400 hover:text-white cursor-pointer" />
+        <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap shadow-lg">
+          Datos e imágenes de películas proporcionados por TMDB
+        </span>
+      </div>
+      <a 
+        href="https://www.themoviedb.org/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center"
+      >
+        <Image
+          class="h-4 opacity-80 hover:opacity-100 transition"
+          src={tmdbLogo}
+          alt="TMDB logo"
+          loading="eager"
+        />
+      </a>
+    </div>
+    <ul class="flex items-center text-sm font-medium text-gray-400">
       <li>
         <a
           href="https://github.com/RaiderMr3003"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
-          class="inline-flex items-center ml-1 hover:underline"
+          class="inline-flex items-center gap-1 hover:underline"
         >
-          RaiderMr -
+          RaiderMr
           <Github size={20} />
         </a>
       </li>
