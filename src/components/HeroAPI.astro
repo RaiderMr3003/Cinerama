@@ -41,6 +41,34 @@ function formatDate(dateString: string) {
 ---
 
 
+<style is:global>
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+
+<script>
+  // Detener autoplay del hero para usuarios con prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const stop = () => {
+      const el = document.querySelector('astro-swiper') as any;
+      if (el?.astroSwiper) {
+        el.astroSwiper.autoplay?.stop();
+      } else {
+        requestAnimationFrame(stop);
+      }
+    };
+    stop();
+  }
+</script>
+
 <h1 class="sr-only">Cinerama - Cartelera</h1>
 <Swiper
   options={{
