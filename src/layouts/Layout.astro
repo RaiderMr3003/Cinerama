@@ -3,7 +3,6 @@ import { ClientRouter } from "astro:transitions";
 
 import "../styles/global.css";
 import Header from '../components/Header.astro';
-import Hero from '../components/HeroAPI.astro';
 import Footer from '../components/Footer.astro';
 
 
@@ -40,7 +39,6 @@ const { description, title, imageUrl = '/og-cinerama.jpg', pageUrl = 'https://ci
 	</head>
 	<body>
 		<Header />
-		<Hero />
 		<slot />
 		<Footer />
 	</body>
