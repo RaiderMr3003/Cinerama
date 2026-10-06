@@ -25,9 +25,9 @@ const genreRes = await fetch("https://api.themoviedb.org/3/genre/movie/list?lang
 const genreData = await genreRes.json();
 const genres = genreData.genres;
 
-function getGenreNames(ids) {
+function getGenreNames(ids: number[]) {
   return ids
-    .map(id => genres.find(g => g.id === id)?.name)
+    .map((id: number) => genres.find((g: any) => g.id === id)?.name)
     .filter(Boolean);
 }
 
@@ -58,7 +58,7 @@ function formatDate(dateString: string) {
   }}
 >
   <SwiperWrapper>
-    {movies.map((movie) => (
+    {movies.map((movie: any) => (
       <SwiperSlide>
         <div class="relative w-screen h-screen">
           <img

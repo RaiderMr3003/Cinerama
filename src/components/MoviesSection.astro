@@ -39,18 +39,8 @@ const genres = genreData.genres;
 
 function getGenreNames(ids: number[]) {
   return ids
-    .map((id) => genres.find((g) => g.id === id)?.name)
+    .map((id: number) => genres.find((g: any) => g.id === id)?.name)
     .filter(Boolean);
-}
-
-function formatDate(dateString: string) {
-  if (!dateString) return "";
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(date);
 }
 ---
 
@@ -61,7 +51,7 @@ function formatDate(dateString: string) {
       <p>{subtitle}</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {movies.map((movie) => (
+      {movies.map((movie: any) => (
         <div class="movie-card rounded-xl bg-slate-900 shadow-lg p-6 hover:shadow-2xl transition-all duration-300">
           <div class="h-64 rounded-lg mb-4 overflow-hidden">
             <img

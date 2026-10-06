@@ -5,6 +5,7 @@ import { MapPin, Clapperboard, TvMinimal } from "@lucide/astro";
 import cines from "../data/cines.json";
 
 // Importar imágenes
+import type { ImageMetadata } from "astro";
 import pacifico from "../assets/pacifico.webp";
 import chimbote from "../assets/chimbote.webp";
 import cajamarca from "../assets/cajamarca.webp";
@@ -17,7 +18,7 @@ import piura from "../assets/piura.webp";
 import sol from "../assets/sol.webp";
 import tarapoto from "../assets/tarapoto.webp";
 
-const imagenes = {
+const imagenes: Record<string, ImageMetadata> = {
   pacifico,
   chimbote,
   cajamarca,
