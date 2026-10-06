@@ -3,8 +3,6 @@ import { Image } from "astro:assets";
 import { Menu, X, Github } from "@lucide/astro";
 
 import cineramaLogo from "../assets/cineramaNoBG.png";
-
-const { currentLocale } = Astro;
 ---
 
 <header id="header-nav" class="fixed top-0 w-full px-6 pt-4 pb-2 z-50 text-white text-xl">
@@ -27,23 +25,21 @@ const { currentLocale } = Astro;
         <a href="/ranking#rank" class="hover:text-[#ed0000] hover:underline transition-colors">Ranking</a>
       </div>
       <div>
-        <button>
-          <a 
-            href="https://github.com/RaiderMr3003/Cinerama" 
-            target="_blank" 
-            rel="icon-github" 
-            class="text-dark hover:text-[#ed0000] transition-colors"
-            aria-label="GitHub"
-          >
-				    <Github size={30} />
-			    </a>
-        </button>
+        <a
+          href="https://github.com/RaiderMr3003/Cinerama"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-[#ed0000] transition-colors"
+          aria-label="GitHub"
+        >
+          <Github size={30} />
+        </a>
       </div>
-      <a href="#header-nav" class="md:hidden absolute top-6 right-6">
+      <a href="#header-nav" class="md:hidden absolute top-6 right-6" aria-label="Cerrar menú">
         <X />
       </a>
     </nav>
-    <a href="#header-menu" class="md:hidden">
+    <a href="#header-menu" class="md:hidden" aria-label="Abrir menú">
       <Menu />
     </a>
   </div>
