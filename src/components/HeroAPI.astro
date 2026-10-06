@@ -2,8 +2,6 @@
 import { Swiper, SwiperWrapper, SwiperSlide, SwiperButtonPrev, SwiperButtonNext } from "astro-swiper";
 import { Star, Calendar } from "@lucide/astro";
 
-export const prerender = true;
-export const revalidate = 60 * 60 * 48;
 
 const res = await fetch("https://api.themoviedb.org/3/trending/movie/week?language=es-ES", {
   headers: {
@@ -43,6 +41,7 @@ function formatDate(dateString: string) {
 ---
 
 
+<h1 class="sr-only">Cinerama - Cartelera</h1>
 <Swiper
   options={{
     autoplay: {
@@ -71,7 +70,7 @@ function formatDate(dateString: string) {
           <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
 
           <div class="absolute inset-0 flex flex-col justify-center items-start text-white bg-black/70 px-16">
-            <h1 class="text-3xl md:text-5xl lg:text-7xl font-bold">{movie.title}</h1>
+            <h2 class="text-3xl md:text-5xl lg:text-7xl font-bold">{movie.title}</h2>
             <p class="text-sm md:text-lg mt-2">
               {movie.overview.length > 100 
               ? movie.overview.slice(0, 100) + "..." 
@@ -95,10 +94,14 @@ function formatDate(dateString: string) {
             </div>
 
             <div>
-              <a href={`https://www.youtube.com/results?search_query=${movie.title} trailer`} target="_blank">
-                <button class="bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg" style="cursor:pointer;">
-                  Ver Trailer
-                </button>
+              <a
+                href={`https://www.youtube.com/results?search_query=${movie.title} trailer`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-block bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg"
+                style="cursor:pointer;"
+              >
+                Ver Trailer
               </a>
             </div>
           </div>

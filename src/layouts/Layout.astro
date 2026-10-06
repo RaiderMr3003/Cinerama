@@ -13,7 +13,10 @@ interface Props {
 	pageUrl?: string;
 }
 
-const { description, title, imageUrl = '/og-cinerama.jpg', pageUrl = 'https://cinerama-seven.vercel.app' } = Astro.props;
+const { description, title, imageUrl = '/og-cinerama.jpg', pageUrl } = Astro.props;
+const canonicalUrl = pageUrl ?? new URL(Astro.url.pathname, Astro.site).href;
+const pageTitle = title.includes('Cinerama') ? title : `${title} | Cinerama`;
+const ogImage = new URL(imageUrl, Astro.site).href;
 ---
 <!doctype html>
 <html lang="es">
@@ -25,15 +28,24 @@ const { description, title, imageUrl = '/og-cinerama.jpg', pageUrl = 'https://ci
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
+		<link rel="canonical" href={canonicalUrl} />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>{pageTitle}</title>
 
 		<!-- Open Graph / Facebook / Discord -->
-		<meta property="og:url" content={pageUrl} />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:type" content="website" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={imageUrl} />
+		<meta property="og:image" content={ogImage} />
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"name": "Cinerama",
+			"url": Astro.site?.href,
+			"logo": new URL('/favicon.svg', Astro.site).href
+		})} />
 
 		<ClientRouter />
 	</head>

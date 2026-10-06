@@ -11,8 +11,6 @@ export interface Props {
 
 const { idsection, title, subtitle, fetchUrl } = Astro.props;
 
-export const prerender = true;
-export const revalidate = 60 * 60 * 168;
 
 const res = await fetch(fetchUrl, {
   headers: {
@@ -47,7 +45,7 @@ function getGenreNames(ids: number[]) {
 <section id={idsection} class="my-10 mx-7 text-white">
   <div class="container mx-auto px-6">
     <div class="text-center space-y-3 mb-10">
-      <h2 class="text-3xl md:text-4xl lg:text-6xl font-bold">{title}</h2>
+      <h1 class="text-3xl md:text-4xl lg:text-6xl font-bold">{title}</h1>
       <p>{subtitle}</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -62,7 +60,7 @@ function getGenreNames(ids: number[]) {
             />
           </div>
           <div class="flex items-center text-gray-400 mb-2 gap-2">
-            <h3 class="text-2xl font-bold line-clamp-2">{movie.title}</h3>
+            <h2 class="text-2xl font-bold line-clamp-2">{movie.title}</h2>
           </div>
           <div class="flex items-center mb-2 gap-4">
             <div class="flex items-center gap-1">
