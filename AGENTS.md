@@ -145,15 +145,18 @@ Todas las peticiones envían `Authorization: Bearer ${import.meta.env.TMDB_ACCES
 | `src/components/HeroAPI.astro` | Swiper del hero (portada) con datos de TMDB |
 | `src/components/MoviesSection.astro` | Grilla reutilizable de películas (recibe `fetchUrl`) |
 | `src/components/Cines.astro` | Sección de cines + tarjetas desde `cines.json` |
+| `src/components/AvisoDegradado.astro` | Banner "Datos de muestra" cuando TMDB no responde |
+| `src/lib/tmdb.ts` | Integración con TMDB: token, errores de red/HTTP, normalización a `Movie` |
+| `src/lib/movies.ts` | `getMovieList()`: TMDB primero; si falla, respaldo local (solo en `dev`) |
 | `src/pages/index.astro` | `/` → Hero + Cines |
 | `src/pages/estrenos.astro` | `/estrenos` (now_playing) |
 | `src/pages/popular.astro` | `/popular` (popular) |
 | `src/pages/proximo.astro` | `/proximo` (upcoming) |
 | `src/pages/ranking.astro` | `/ranking` (top_rated) |
 | `src/data/cines.json` | **Usado**: cines (nombre, dirección, `img`, `orden`, `url`, `ubicacion`) |
-| `src/data/movies.json` | **Sin uso actual** (código legado) — ver limpieza en roadmap |
+| `src/data/movies.json` | **Usado como respaldo local**: 6 películas de muestra si TMDB falla en `dev` |
 | `src/styles/global.css` | `@import "tailwindcss"` + scroll suave (respeta `prefers-reduced-motion`) |
-| `src/assets/*.webp` | Imágenes locales de cines/logo (varias sin uso; ver roadmap) |
+| `src/assets/*.webp` | Cines (11) + logo + logo TMDB + 6 películas de respaldo. Solo `cinerama.webp` sigue sin uso |
 
 ### Rutas y anclas de navegación
 | Ruta | Sección (`idsection`) | Ancla en menú |
@@ -226,7 +229,10 @@ Pendiente (ver roadmap): JSON-LD de películas, `og:image` por película, accesi
    Mantener `typescript@~5.9.3`. Si `astro check` pide instalar `@astrojs/check`, ya está en
    `devDependencies`; no responder el prompt interactivo, usar `pnpm check`.
 
-3. **Token de TMDB**: sin `TMDB_ACCESS_TOKEN` el build falla. No hay datos de respaldo.
+3. **Token de TMDB**: gestionado en `src/lib/tmdb.ts`. En `pnpm dev` sin token válido se usan
+   **datos locales de muestra** con un banner "Datos de muestra" y un `console.warn` con la causa.
+   En `pnpm build` (producción) **falla a propósito** con un mensaje claro, para que Vercel
+   conserve el último despliegue correcto en vez de publicar muestras.
 
 4. **`image.service` = noop**: no esperes optimización de `<Image>`/`<Picture>`. Los `src` de TMDB
    se usan crudos. (Actualmente se pide tamaño `original` → pesado; ver roadmap.)
@@ -236,9 +242,8 @@ Pendiente (ver roadmap): JSON-LD de películas, `og:image` por película, accesi
 6. **Menú móvil con `:target`**: funciona sin JS pero no es óptimo para teclado. No lo rompas sin
    migrar a un toggle accesible a la vez.
 
-7. **Código/imágenes sin uso**: `src/data/movies.json` y varios `src/assets/*.webp`
-   (`betterman`, `chainsawman`, `endgame`, `f1`, `nowayhome`, `spiderman`, `cinerama.webp`) no se
-   importan en ninguna parte. No los borres sin confirmar; ver roadmap.
+7. **Código/imágenes sin uso**: `movies.json` y las 6 imágenes de películas **sí se usan** ahora
+   (respaldo local, ver `src/lib/movies.ts`). Único asset sin uso conocido: `src/assets/cinerama.webp`.
 
 8. **Sin lint/formato/tests/CI.** Cualquier verificación manual es `pnpm check` + `pnpm build`.
 
@@ -268,12 +273,10 @@ Checklist para cualquier cambio:
 Ordenado por impacto. (Sugerencias, no obligaciones.)
 
 ### P1 — Rendimiento y robustez técnica
-- **Imágenes de TMDB en tamaño adecuado**: usar `w780`/`w1280` en vez de `original` (grillas y hero).
-  Es la mejora de rendimiento más grande (payload actual muy pesado).
-- **`loading="lazy"`** en imágenes bajo el pliegue (hoy todo es `eager`), y `width`/`height` para
-  evitar *layout shift* (CLS).
-- **Manejo de token ausente**: mensaje claro o degradación elegante si falta `TMDB_ACCESS_TOKEN`.
-- **Base de datos de cines**: `cines.json` tiene `ubigeo`/`cc`/`estado` quizá sin uso; validar.
+- [x] **Imágenes de TMDB en tamaño adecuado** (`w780` grillas / `w1280` hero) — hecho: −86%/−94% de payload.
+- [x] **`loading="lazy"`** fuera del hero + `width`/`height` — hecho.
+- [x] **Manejo de token ausente / errores de API** — hecho en `src/lib/tmdb.ts` + respaldo local en `dev`.
+- [ ] **Base de datos de cines**: `cines.json` tiene `ubigeo`/`cc`/`estado` quizá sin uso; validar.
 
 ### P2 — SEO y accesibilidad
 - **Menú móvil accesible**: reemplazar `:target` por `<button aria-expanded>` + foco gestionado.
@@ -322,6 +325,10 @@ Una sesión previa de hardening dejó el repo así (commits en `main`):
 7. SEO/a11y: canonical, `og:url`, JSON-LD, jerarquía de headings, títulos con `| Cinerama`.
 8. Skip link + `prefers-reduced-motion` (scroll y autoplay del hero).
 9. README ampliado (stack, setup, comandos, estructura, SEO/a11y).
+10. **Etapa 1**: imágenes TMDB `original`→`w780`/`w1280`, `loading="lazy"`, fallback para
+    `backdrop_path` nulo y `overview` vacío.
+11. **Etapa 2**: `src/lib/tmdb.ts` + `src/lib/movies.ts` (errores accionables, view-model `Movie`,
+    respaldo local en `dev` con banner "Datos de muestra", estados vacíos, fechas normalizadas).
 
 ---
 

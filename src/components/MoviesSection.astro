@@ -1,6 +1,9 @@
 ---
 // MoviesSection.astro
-import { Star, Calendar} from "@lucide/astro";
+import { Calendar, Star } from "@lucide/astro";
+
+import { getMovieList } from "../lib/movies";
+import AvisoDegradado from "./AvisoDegradado.astro";
 
 export interface Props {
   idsection?: string;
@@ -11,35 +14,7 @@ export interface Props {
 
 const { idsection, title, subtitle, fetchUrl } = Astro.props;
 
-
-const res = await fetch(fetchUrl, {
-  headers: {
-    accept: "application/json",
-    Authorization: `Bearer ${import.meta.env.TMDB_ACCESS_TOKEN}`,
-  },
-});
-
-const data = await res.json();
-const movies = data.results.slice(0, 20);
-
-const genreRes = await fetch(
-  "https://api.themoviedb.org/3/genre/movie/list?language=es-ES",
-  {
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${import.meta.env.TMDB_ACCESS_TOKEN}`,
-    },
-  }
-);
-
-const genreData = await genreRes.json();
-const genres = genreData.genres;
-
-function getGenreNames(ids: number[]) {
-  return ids
-    .map((id: number) => genres.find((g: any) => g.id === id)?.name)
-    .filter(Boolean);
-}
+const { movies, degraded } = await getMovieList(fetchUrl, 20, "w780");
 ---
 
 <section id={idsection} class="my-10 mx-7 text-white">
@@ -48,46 +23,53 @@ function getGenreNames(ids: number[]) {
       <h1 class="text-3xl md:text-4xl lg:text-6xl font-bold">{title}</h1>
       <p>{subtitle}</p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {movies.map((movie: any) => (
-        <div class="movie-card rounded-xl bg-slate-900 shadow-lg p-6 hover:shadow-2xl transition-all duration-300">
-          <div class="h-64 rounded-lg mb-4 overflow-hidden">
-            <img
-              src={movie.backdrop_path ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` : "/og-cinerama.jpg"}
-              class="w-full h-full object-cover"
-              alt={movie.title}
-              loading="lazy"
-              decoding="async"
-              width="780"
-              height="440"
-            />
-          </div>
-          <div class="flex items-center text-gray-400 mb-2 gap-2">
-            <h2 class="text-2xl font-bold line-clamp-2">{movie.title}</h2>
-          </div>
-          <div class="flex items-center mb-2 gap-4">
-            <div class="flex items-center gap-1">
-              <span class="text-gray-400">{movie.release_date}</span>
-              <Calendar size={20} class="text-green-300" />
+
+    {degraded && <AvisoDegradado />}
+
+    {
+      movies.length === 0 ? (
+        <p class="py-16 text-center text-gray-400">
+          No hay películas disponibles por el momento.
+        </p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+          {movies.map((movie) => (
+            <div class="movie-card rounded-xl bg-slate-900 shadow-lg p-6 hover:shadow-2xl transition-all duration-300">
+              <div class="h-64 rounded-lg mb-4 overflow-hidden">
+                <img
+                  src={movie.image}
+                  class="w-full h-full object-cover"
+                  alt={movie.title}
+                  loading="lazy"
+                  decoding="async"
+                  width="780"
+                  height="440"
+                />
+              </div>
+              <div class="flex items-center text-gray-400 mb-2 gap-2">
+                <h2 class="text-2xl font-bold line-clamp-2">{movie.title}</h2>
+              </div>
+              <div class="flex items-center mb-2 gap-4">
+                <div class="flex items-center gap-1">
+                  <span class="text-gray-400">{movie.releaseLabel}</span>
+                  <Calendar size={20} class="text-green-300" />
+                </div>
+                <div class="flex items-center gap-1">
+                  <span class="text-gray-400">{movie.ratingLabel}</span>
+                  <Star size={20} class="text-yellow-300" />
+                </div>
+                <span class="bg-blue-600 px-2 py-1 rounded text-xs">
+                  {movie.genreLabel}
+                </span>
+              </div>
+              <p class="text-gray-300 line-clamp-4">
+                {movie.overview || "Sin sinopsis disponible."}
+              </p>
             </div>
-            <div class="flex items-center gap-1">
-              <span class="text-gray-400">{movie.vote_average}</span>
-              <Star size={20} class="text-yellow-300" />
-            </div>
-            <div class="flex items-center">
-              <span class="bg-blue-600 px-2 py-1 rounded text-xs">
-                {getGenreNames(movie.genre_ids).length > 0
-                  ? getGenreNames(movie.genre_ids).slice(0, 1).join(", ")
-                  : "Variado"}
-              </span>
-            </div>
-          </div>
-          <p class="text-gray-300 line-clamp-4">
-            {movie.overview || "Sin sinopsis disponible."}
-          </p>
+          ))}
         </div>
-      ))}
-    </div>
+      )
+    }
   </div>
 </section>
 
