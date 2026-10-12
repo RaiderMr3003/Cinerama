@@ -107,6 +107,14 @@ public/            # favicon, og image, robots.txt
 - `alt` en imágenes, `aria-label` en íconos y `lang="es"` en el `<html>`.
 - `robots.txt` + sitemap en `@astrojs/sitemap`.
 
+## 🤖 Guía del proyecto (para agentes / IA)
+
+El archivo [**`AGENTS.md`**](./AGENTS.md) es la **guía de traspaso completa** del proyecto:
+arquitectura y flujo de datos, setup, variables de entorno, mapa de archivos, convenciones de
+código, SEO/accesibilidad, problemas conocidos y roadmap priorizado.
+
+Léelo antes de contribuir o al retomar el proyecto en **otra máquina, herramienta o IA**.
+
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
