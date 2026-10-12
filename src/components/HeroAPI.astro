@@ -89,10 +89,13 @@ function formatDate(dateString: string) {
       <SwiperSlide>
         <div class="relative w-screen h-screen">
           <img
-            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+            src={movie.backdrop_path ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}` : "/og-cinerama.jpg"}
             class="w-full h-full object-cover"
             alt={movie.title}
             loading="eager"
+            decoding="async"
+            width="1280"
+            height="720"
           />
 
           <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
@@ -100,9 +103,11 @@ function formatDate(dateString: string) {
           <div class="absolute inset-0 flex flex-col justify-center items-start text-white bg-black/70 px-16">
             <h2 class="text-3xl md:text-5xl lg:text-7xl font-bold">{movie.title}</h2>
             <p class="text-sm md:text-lg mt-2">
-              {movie.overview.length > 100 
-              ? movie.overview.slice(0, 100) + "..." 
-              : movie.overview}
+              {movie.overview
+                ? movie.overview.length > 100
+                  ? movie.overview.slice(0, 100) + "..."
+                  : movie.overview
+                : "Sin sinopsis disponible."}
             </p>
 
             <div class="flex flex-wrap items-center gap-4 mt-2 mb-4 text-sm">

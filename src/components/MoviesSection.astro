@@ -53,10 +53,13 @@ function getGenreNames(ids: number[]) {
         <div class="movie-card rounded-xl bg-slate-900 shadow-lg p-6 hover:shadow-2xl transition-all duration-300">
           <div class="h-64 rounded-lg mb-4 overflow-hidden">
             <img
-              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+              src={movie.backdrop_path ? `https://image.tmdb.org/t/p/w780${movie.backdrop_path}` : "/og-cinerama.jpg"}
               class="w-full h-full object-cover"
               alt={movie.title}
-              loading="eager"
+              loading="lazy"
+              decoding="async"
+              width="780"
+              height="440"
             />
           </div>
           <div class="flex items-center text-gray-400 mb-2 gap-2">
@@ -79,7 +82,9 @@ function getGenreNames(ids: number[]) {
               </span>
             </div>
           </div>
-          <p class="text-gray-300 line-clamp-4">{movie.overview}</p>
+          <p class="text-gray-300 line-clamp-4">
+            {movie.overview || "Sin sinopsis disponible."}
+          </p>
         </div>
       ))}
     </div>
