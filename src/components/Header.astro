@@ -1,46 +1,248 @@
 ---
 import { Image } from "astro:assets";
-import { Menu, X, Github } from "@lucide/astro";
+import { Menu, X } from "@lucide/astro";
 
 import cineramaLogo from "../assets/cineramaNoBG.png";
+
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+const links: NavItem[] = [
+  { href: "/", label: "Inicio" },
+  { href: "/#cines", label: "Cines" },
+  { href: "/estrenos#encines", label: "Estrenos" },
+  { href: "/popular#top", label: "Populares" },
+  { href: "/proximo#proximamente", label: "Proximamente" },
+  { href: "/ranking#rank", label: "Ranking" },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+
+function pathOf(href: string): string {
+  return href.split("#")[0].replace(/\/+$/, "") || "/";
+}
+
+/** Marca `aria-current="page"` solo en el enlace de la ruta actual. */
+function isCurrent(href: string): boolean {
+  const path = pathOf(href);
+  if (path !== currentPath) return false;
+  // En la portada solo "Inicio" es la ruta; "/#cines" es una ancla.
+  return !href.includes("#") || path !== "/";
+}
 ---
 
-<header id="header-nav" class="fixed top-0 w-full px-6 pt-4 pb-2 z-50 text-white text-xl">
+<header
+  id="header-nav"
+  class="fixed top-0 w-full px-6 pt-4 pb-2 z-50 text-white text-xl"
+>
   <div class="max-w-8xl mx-auto flex items-center justify-between gap-16">
-    <a href="/">
+    <a href="/" class="relative z-50">
       <Image
         class="w-50 h-auto"
         src={cineramaLogo}
-        alt="cinerama logo"
+        alt="Cinerama"
         loading="eager"
       />
     </a>
-    <nav id="header-menu" class="fixed w-full h-dvh inset-0 bg-black/90 md:text-xl lg:text-xl flex flex-col items-center justify-center gap-8 -translate-y-full transition-transform duration-300 target:translate-y-0 md:static md:h-[initial] md:bg-[initial] md:flex-row md:justify-between md:w-full md:translate-y-[initial]">
+
+    <nav
+      id="header-menu"
+      aria-label="Navegación principal"
+      class="fixed w-full h-dvh inset-0 z-40 bg-black/90 md:text-xl flex flex-col items-center justify-center gap-8 md:static md:z-auto md:h-auto md:bg-transparent md:flex-row md:justify-between md:w-full"
+    >
       <div class="flex flex-col items-center gap-8 md:flex-row">
-        <a href="/" class="hover:text-[#ed0000] hover:underline transition-colors">Inicio</a>
-        <a href="/#cines" class="hover:text-[#ed0000] hover:underline transition-colors">Cines</a>
-        <a href="/estrenos#encines" class="hover:text-[#ed0000] hover:underline transition-colors">Estrenos</a>
-        <a href="/popular#top" class="hover:text-[#ed0000] hover:underline transition-colors">Populares</a>
-        <a href="/proximo#proximamente" class="hover:text-[#ed0000] hover:underline transition-colors">Proximamente</a>
-        <a href="/ranking#rank" class="hover:text-[#ed0000] hover:underline transition-colors">Ranking</a>
+        {
+          links.map((link) => (
+            <a
+              href={link.href}
+              aria-current={isCurrent(link.href) ? "page" : undefined}
+              class="hover:text-cine-rojo-vivo hover:underline transition-colors"
+            >
+              {link.label}
+            </a>
+          ))
+        }
       </div>
+
       <div>
         <a
           href="https://github.com/RaiderMr3003/Cinerama"
           target="_blank"
           rel="noopener noreferrer"
-          class="hover:text-[#ed0000] transition-colors"
-          aria-label="GitHub"
+          class="hover:text-cine-rojo-vivo transition-colors"
+          aria-label="GitHub de Cinerama (se abre en una pestaña nueva)"
         >
-          <Github size={30} />
+          <!-- Icono de marca en SVG inline: lucide deprecó sus iconos de marca. -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+            ></path>
+            <path d="M9 18c-4.51 2-5-2-7-2"></path>
+          </svg>
         </a>
       </div>
-      <a href="#header-nav" class="md:hidden absolute top-6 right-6" aria-label="Cerrar menú">
-        <X />
-      </a>
     </nav>
-    <a href="#header-menu" class="md:hidden" aria-label="Abrir menú">
-      <Menu />
-    </a>
+
+    <button
+      type="button"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="header-menu"
+      aria-label="Abrir menú"
+      class="md:hidden relative z-50"
+    >
+      <Menu class="icon-open" aria-hidden="true" focusable="false" />
+      <X class="icon-close" aria-hidden="true" focusable="false" />
+    </button>
   </div>
 </header>
+
+<noscript>
+  <!-- Sin JS el menú no puede desplegarse: se muestra siempre visible. -->
+  <style is:global>
+    @media (max-width: 767px) {
+      #menu-toggle {
+        display: none;
+      }
+      #header-menu {
+        position: static;
+        transform: none;
+        visibility: visible;
+        width: auto;
+        height: auto;
+        background: transparent;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 1rem;
+        font-size: 0.875rem;
+      }
+      #header-menu > div {
+        flex-direction: row;
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+    }
+  </style>
+</noscript>
+
+<script>
+  // Selectores de elementos enfocables dentro del menú.
+  const FOCUSABLE =
+    'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+  const mobile = window.matchMedia("(max-width: 767px)");
+
+  function parts() {
+    const toggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("header-menu");
+    return toggle && menu ? { toggle, menu } : null;
+  }
+
+  function isOpen(): boolean {
+    return (
+      document.getElementById("header-menu")?.classList.contains("is-open") ??
+      false
+    );
+  }
+
+  function setOpen(open: boolean, restoreFocus = false): void {
+    const part = parts();
+    if (!part) return;
+
+    part.menu.classList.toggle("is-open", open);
+    part.toggle.setAttribute("aria-expanded", String(open));
+    part.toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    document.documentElement.classList.toggle("menu-open", open);
+
+    if (open) {
+      // Al abrir, el foco entra al primer enlace del menú.
+      const first = part.menu.querySelector<HTMLElement>(FOCUSABLE);
+      first?.focus();
+    } else if (restoreFocus) {
+      // Al cerrar con Escape, el foco vuelve al botón que abrió el menú.
+      part.toggle.focus();
+    }
+  }
+
+  // Toda la interacción está delegada en `document`: los listeners se
+  // registran una sola vez y funcionan tras cada navegación de ClientRouter.
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    if (target.closest("#menu-toggle")) {
+      setOpen(!isOpen());
+      return;
+    }
+
+    if (!isOpen() || !target.closest("#header-menu")) return;
+
+    // Un clic en un enlace navega: cerramos sin robarle el foco.
+    const onLink = target.closest("#header-menu a[href]") !== null;
+    setOpen(false, !onLink);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!isOpen()) return;
+
+    if (event.key === "Escape") {
+      event.preventDefault();
+      setOpen(false, true);
+      return;
+    }
+
+    if (event.key !== "Tab" || !mobile.matches) return;
+
+    // Trampa de foco: el menú a pantalla completa no debe dejar escapar
+    // el Tab al contenido que queda debajo.
+    const part = parts();
+    if (!part) return;
+
+    const items = [
+      ...part.menu.querySelectorAll<HTMLElement>(FOCUSABLE),
+      part.toggle,
+    ];
+    const first = items[0];
+    const last = items[items.length - 1];
+    const active = document.activeElement;
+
+    if (!first || !last) return;
+
+    if (!items.includes(active as HTMLElement)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && active === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && active === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  // Si se cambia a escritorio mientras el menú está abierto, se limpia.
+  mobile.addEventListener("change", (event) => {
+    if (event.matches) setOpen(false);
+  });
+
+  // Red de seguridad tras navegar con view transitions.
+  document.addEventListener("astro:page-load", () => {
+    document.documentElement.classList.remove("menu-open");
+  });
+</script>
