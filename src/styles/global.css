@@ -1,9 +1,107 @@
 @import "tailwindcss";
+
+/*
+ * Sistema de diseño "Cinerama".
+ * Identidad derivada del logo (rojo #ED0000 dominante) + oro para
+ * valoraciones y acción primaria. Sin `tailwind.config.js` (Tailwind v4).
+ *
+ * Regla de uso:
+ *   - rojo      → marca, hover, acentos y bordes de énfasis
+ *   - rojo-vivo → texto/acentos sobre negro (5.9:1)
+ *   - oro       → valoraciones y CTA (11.3:1 sobre negro)
+ *   - humo/borde→ estructura de tarjetas
+ */
+@theme {
+  --color-cine-rojo: #ed0000;
+  /* Versión oscura del rojo: hover de botones con texto blanco (6.9:1). */
+  --color-cine-rojo-hondo: #b80000;
+  --color-cine-rojo-vivo: #ff3b30;
+  --color-cine-oro: #f5b301;
+  --color-cine-humo: #131316;
+  --color-cine-borde: #26262c;
+  --color-cine-carbon: #0a0a0b;
+}
+
 html {
   scroll-behavior: smooth;
 }
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* Foco visible y con contraste sobre fondo oscuro (WCAG 2.4.7). */
+:focus-visible {
+  outline: 2px solid var(--color-cine-oro);
+  outline-offset: 3px;
+}
+
+/* Movimiento reducido: ahora aplica en TODAS las páginas (antes solo en la
+   portada, porque la regla vivía dentro de HeroAPI). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Menú móvil: disclosure accesible (reemplaza el antiguo `:target`) --- */
+
+/* Cerrado: fuera de pantalla Y `visibility: hidden`, para que sus enlaces
+   no sean enfocables ni aparezcan en el árbol de accesibilidad. */
+#header-menu {
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition:
+    transform 300ms ease,
+    visibility 0s linear 300ms;
+}
+
+#header-menu.is-open {
+  transform: translateY(0);
+  visibility: visible;
+  transition:
+    transform 300ms ease,
+    visibility 0s linear 0s;
+}
+
+/* Un único botón que alterna icono (menú/cerrar) y estado ARIA. */
+#menu-toggle .icon-close {
+  display: none;
+}
+#menu-toggle[aria-expanded="true"] .icon-open {
+  display: none;
+}
+#menu-toggle[aria-expanded="true"] .icon-close {
+  display: block;
+}
+
+/* Enlace de la sección activa. */
+#header-menu a[aria-current="page"] {
+  color: var(--color-cine-rojo-vivo);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* Bloqueo de scroll mientras el menú está abierto. */
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  /* En escritorio la navegación es siempre visible: el JS no interviene. */
+  #header-menu,
+  #header-menu.is-open {
+    transform: none;
+    visibility: visible;
+    transition: none;
   }
 }

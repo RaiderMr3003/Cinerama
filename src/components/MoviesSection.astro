@@ -21,24 +21,24 @@ const { movies, degraded } = await getMovieList(fetchUrl, 20, "w780");
   <div class="container mx-auto px-6">
     <div class="text-center space-y-3 mb-10">
       <h1 class="text-3xl md:text-4xl lg:text-6xl font-bold">{title}</h1>
-      <p>{subtitle}</p>
+      <p class="text-zinc-400">{subtitle}</p>
     </div>
 
     {degraded && <AvisoDegradado />}
 
     {
       movies.length === 0 ? (
-        <p class="py-16 text-center text-gray-400">
+        <p class="py-16 text-center text-zinc-400">
           No hay películas disponibles por el momento.
         </p>
       ) : (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
           {movies.map((movie) => (
-            <div class="movie-card rounded-xl bg-slate-900 shadow-lg p-6 hover:shadow-2xl transition-all duration-300">
-              <div class="h-64 rounded-lg mb-4 overflow-hidden">
+            <article class="movie-card group rounded-xl bg-cine-humo border border-cine-borde shadow-lg p-6 hover:shadow-2xl hover:shadow-cine-rojo/20 hover:border-cine-rojo/40 transition-all duration-300">
+              <div class="h-64 rounded-lg mb-4 overflow-hidden bg-black/40">
                 <img
                   src={movie.image}
-                  class="w-full h-full object-cover"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   alt={movie.title}
                   loading="lazy"
                   decoding="async"
@@ -46,26 +46,30 @@ const { movies, degraded } = await getMovieList(fetchUrl, 20, "w780");
                   height="440"
                 />
               </div>
-              <div class="flex items-center text-gray-400 mb-2 gap-2">
-                <h2 class="text-2xl font-bold line-clamp-2">{movie.title}</h2>
-              </div>
-              <div class="flex items-center mb-2 gap-4">
-                <div class="flex items-center gap-1">
-                  <span class="text-gray-400">{movie.releaseLabel}</span>
-                  <Calendar size={20} class="text-green-300" />
+              <h2 class="text-2xl font-bold line-clamp-2 text-white mb-3">
+                {movie.title}
+              </h2>
+              <div class="flex flex-wrap items-center mb-3 gap-x-4 gap-y-2 text-sm">
+                <div class="flex items-center gap-1.5">
+                  <Calendar
+                    size={16}
+                    class="text-cine-rojo-vivo"
+                    aria-hidden="true"
+                  />
+                  <span class="text-zinc-400">{movie.releaseLabel}</span>
                 </div>
-                <div class="flex items-center gap-1">
-                  <span class="text-gray-400">{movie.ratingLabel}</span>
-                  <Star size={20} class="text-yellow-300" />
+                <div class="flex items-center gap-1.5">
+                  <Star size={16} class="text-cine-oro" aria-hidden="true" />
+                  <span class="text-zinc-400">{movie.ratingLabel}</span>
                 </div>
-                <span class="bg-blue-600 px-2 py-1 rounded text-xs">
+                <span class="rounded border border-cine-oro/40 bg-cine-oro/10 px-2 py-0.5 text-xs font-medium text-cine-oro">
                   {movie.genreLabel}
                 </span>
               </div>
-              <p class="text-gray-300 line-clamp-4">
+              <p class="text-zinc-400 text-sm leading-relaxed line-clamp-4">
                 {movie.overview || "Sin sinopsis disponible."}
               </p>
-            </div>
+            </article>
           ))}
         </div>
       )
@@ -76,6 +80,6 @@ const { movies, degraded } = await getMovieList(fetchUrl, 20, "w780");
 <style>
 .movie-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 25px 50px -12px rgba(55, 55, 55, 0.5);
+  box-shadow: 0 25px 50px -12px rgba(237, 0, 0, 0.35);
 }
 </style>

@@ -1,44 +1,70 @@
 ---
 import { Image } from "astro:assets";
-import { Github, CircleQuestionMark } from "@lucide/astro";
+import { CircleQuestionMark } from "@lucide/astro";
 import tmdbLogo from "../assets/PrimaryLong-TMBD.svg";
+
+const year = new Date().getFullYear();
 ---
 
-<footer class="shadow-sm bg-gray-900">
+<footer class="bg-cine-humo border-t border-cine-borde">
   <div class="w-full mx-auto max-w-screen-xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
-    <div class="flex flex-col md:flex-row items-center gap-2 text-sm text-gray-400 text-center md:text-left">
-      <span>© Cinerama 2025 — Esta no es la web oficial.</span>
+    <div class="flex flex-col md:flex-row items-center gap-2 text-sm text-zinc-400 text-center md:text-left">
+      <span>© Cinerama {year} - Esta no es la web oficial.</span>
       <div class="relative ml-1 group">
-        <CircleQuestionMark class="text-gray-400 hover:text-white cursor-pointer" />
-        <span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap shadow-lg">
+        <CircleQuestionMark
+          class="text-zinc-400 group-hover:text-white transition-colors"
+          aria-hidden="true"
+        />
+        <span
+          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block group-focus-within:block bg-cine-carbon border border-cine-borde text-white text-xs rounded px-2 py-1 whitespace-nowrap shadow-lg"
+        >
           Datos e imágenes de películas proporcionados por TMDB
         </span>
       </div>
-      <a 
+      <a
         href="https://www.themoviedb.org/"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Sitio de The Movie Database (TMDB), se abre en una pestaña nueva"
         class="inline-flex items-center"
       >
         <Image
           class="h-4 opacity-80 hover:opacity-100 transition"
           src={tmdbLogo}
-          alt="TMDB logo"
+          alt=""
           loading="eager"
         />
       </a>
     </div>
-    <ul class="flex items-center text-sm font-medium text-gray-400">
+    <ul class="flex items-center text-sm font-medium text-zinc-400">
       <li>
         <a
           href="https://github.com/RaiderMr3003"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="GitHub"
-          class="inline-flex items-center gap-1 hover:underline"
+          aria-label="Perfil de GitHub de RaiderMr3003, se abre en una pestaña nueva"
+          class="inline-flex items-center gap-1 hover:underline hover:text-white transition-colors"
         >
           RaiderMr
-          <Github size={20} />
+          <!-- Icono de marca en SVG inline: lucide deprecó sus iconos de marca. -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"
+            ></path>
+            <path d="M9 18c-4.51 2-5-2-7-2"></path>
+          </svg>
         </a>
       </li>
     </ul>

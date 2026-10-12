@@ -5,7 +5,8 @@
 > tocar código. Si eres humano, úsalo como onboarding técnico.
 >
 > Idioma del proyecto: **español** (UI, textos y commits). Este documento también está en español.
-> Última verificación del repo: **octubre 2026** (`pnpm check` = 0 errores, `pnpm build` = 5 páginas).
+> Última verificación del repo: **octubre 2026** (`pnpm check` = 0 errores, 0 avisos, 0 hints;
+> `pnpm build` = 5 páginas).
 
 ---
 
@@ -140,7 +141,7 @@ Todas las peticiones envían `Authorization: Bearer ${import.meta.env.TMDB_ACCES
 | `.env.example` | Plantilla de variables de entorno |
 | `public/` | `favicon.svg`, `og-cinerama.jpg`, `robots.txt` |
 | `src/layouts/Layout.astro` | Chrome común + SEO + a11y (skip link, main, JSON-LD) |
-| `src/components/Header.astro` | Nav fija; menú móvil con mecanismo CSS `:target` |
+| `src/components/Header.astro` | Nav fija; menú móvil accesible con `<button aria-expanded>` + script (foco, Escape, scroll lock, `aria-current`) |
 | `src/components/Footer.astro` | Atribución (TMDB, aviso no oficial) y link a GitHub |
 | `src/components/HeroAPI.astro` | Swiper del hero (portada) con datos de TMDB |
 | `src/components/MoviesSection.astro` | Grilla reutilizable de películas (recibe `fetchUrl`) |
@@ -155,7 +156,7 @@ Todas las peticiones envían `Authorization: Bearer ${import.meta.env.TMDB_ACCES
 | `src/pages/ranking.astro` | `/ranking` (top_rated) |
 | `src/data/cines.json` | **Usado**: cines (nombre, dirección, `img`, `orden`, `url`, `ubicacion`) |
 | `src/data/movies.json` | **Usado como respaldo local**: 6 películas de muestra si TMDB falla en `dev` |
-| `src/styles/global.css` | `@import "tailwindcss"` + scroll suave (respeta `prefers-reduced-motion`) |
+| `src/styles/global.css` | `@import "tailwindcss"`, `@theme` con los tokens de diseño (rojo/oro/neutros), foco visible, movimiento reducido global y estilos del menú móvil |
 | `src/assets/*.webp` | Cines (11) + logo + logo TMDB + 6 películas de respaldo. Solo `cinerama.webp` sigue sin uso |
 
 ### Rutas y anclas de navegación
@@ -173,6 +174,10 @@ Todas las peticiones envían `Authorization: Bearer ${import.meta.env.TMDB_ACCES
 
 - **Astro + Tailwind v4**: no hay `tailwind.config.js`. El tema/variables van en
   `src/styles/global.css` con la sintaxis v4 (`@theme`, `@tailwindcss/vite`).
+- **Paleta**: usar los tokens de `@theme` (`cine-rojo`, `cine-rojo-vivo`, `cine-rojo-hondo`,
+  `cine-oro`, `cine-humo`, `cine-borde`, `cine-carbon`) y no colores Tailwind sueltos. Regla:
+  **oro** = valoración y acción primaria, **rojo** = marca/hover/acento, **neutros** = estructura.
+  Evitar azul/verde/morado/rosa salvo justificación (rompían la identidad del logo).
 - **Componentes**: `.astro` en `src/components`; lógica en el *frontmatter*, markup abajo,
   `<style>` scoped al final si hace falta.
 - **Tipado**: `astro/tsconfigs/strict`. Los datos de TMDB se tipan como `any` puntualmente
@@ -200,11 +205,9 @@ Implementado en `Layout.astro` y componentes:
 - **JSON-LD** `Organization` en el `<head>`.
 - **Skip link** ("Saltar al contenido" → `#main-content`) visible al enfocar.
 - `aria-label` en íconos/enlaces (menú, GitHub), `alt` en imágenes.
-- `prefers-reduced-motion`: se desactiva scroll suave y se **detiene el autoplay** del hero.
+- `prefers-reduced-motion`: se desactiva el scroll suave, se **detiene el autoplay** del hero y se
+  anulan transiciones/animaciones en **todas** las páginas (regla global en `global.css`).
 - `robots.txt` + sitemap (`@astrojs/sitemap` → `sitemap-index.xml`).
-
-Pendiente (ver roadmap): JSON-LD de películas, `og:image` por película, accesibilidad del menú móvil
-(`:target` → botón con `aria-expanded`), contraste de grises y controles del carrusel.
 
 ---
 
@@ -235,12 +238,16 @@ Pendiente (ver roadmap): JSON-LD de películas, `og:image` por película, accesi
    conserve el último despliegue correcto en vez de publicar muestras.
 
 4. **`image.service` = noop**: no esperes optimización de `<Image>`/`<Picture>`. Los `src` de TMDB
-   se usan crudos. (Actualmente se pide tamaño `original` → pesado; ver roadmap.)
+   ya se piden en tamaño adecuado (`w780`/`w1280`) desde `src/lib/tmdb.ts`.
 
 5. **Tailwind v4**: no crear `tailwind.config.js`; la configuración vive en CSS.
 
-6. **Menú móvil con `:target`**: funciona sin JS pero no es óptimo para teclado. No lo rompas sin
-   migrar a un toggle accesible a la vez.
+6. **Menú móvil**: es un *disclosure* con JS (`<button id="menu-toggle" aria-expanded aria-controls>`)
+   cuyo handler está **delegado en `document`** (una sola vez, compatible con ClientRouter). Hay un
+   `<noscript>` que muestra la navegación siempre visible. Si lo tocas, conserva todo esto:
+   `aria-expanded`/`aria-label` sincronizados, **`visibility: hidden` al cerrar** (sin eso, los
+   enlaces ocultos siguen siendo enfocables), el foco de entrada al abrir, la **trampa de foco**,
+   `Escape` que devuelve el foco al botón y el bloqueo de scroll (`html.menu-open`).
 
 7. **Código/imágenes sin uso**: `movies.json` y las 6 imágenes de películas **sí se usan** ahora
    (respaldo local, ver `src/lib/movies.ts`). Único asset sin uso conocido: `src/assets/cinerama.webp`.
@@ -279,12 +286,13 @@ Ordenado por impacto. (Sugerencias, no obligaciones.)
 - [ ] **Base de datos de cines**: `cines.json` tiene `ubigeo`/`cc`/`estado` quizá sin uso; validar.
 
 ### P2 — SEO y accesibilidad
-- **Menú móvil accesible**: reemplazar `:target` por `<button aria-expanded>` + foco gestionado.
+- [x] **Menú móvil accesible** — hecho: `<button aria-expanded>`, Escape, trampa de foco, scroll lock.
+- [x] **Contraste** — hecho: 13 pares de la paleta verificados (todos AA); foco visible global.
 - **Carrusel (WCAG 2.2.2)**: pausar autoplay al hacer hover/enfocar y ofrecer control de pausa;
   `aria-label` en botones prev/next.
-- **Contraste**: revisar `text-gray-400` sobre `bg-gray-900`.
 - **JSON-LD por contenido**: `ItemList`/`Movie` en las páginas y `og:image` por película.
 - **`sitemap`**: confirmar `changefreq`/`priority` si se desea.
+- **Enlaces externos**: valorar avisar "(se abre en una pestaña nueva)" en los 22 enlaces a cines.
 
 ### P3 — Producto
 - Página de **detalle de película** (`/pelicula/[id]`).
@@ -297,7 +305,8 @@ Ordenado por impacto. (Sugerencias, no obligaciones.)
 - **CI con GitHub Actions**: `pnpm install` → `pnpm check` → `pnpm build`.
 - **Lint/format**: Prettier o Biome (no hay nada hoy).
 - **Dependencias**: evaluar Dependabot/Renovate.
-- **Limpieza**: eliminar `src/data/movies.json` y assets sin uso tras confirmar.
+- **Limpieza**: validar si `cines.json` necesita los campos `ubigeo`/`cc`/`estado` (P1).
+  `movies.json` **ya no es desechable**: es el respaldo local de la Etapa 2.
 
 ---
 
@@ -325,18 +334,18 @@ Una sesión previa de hardening dejó el repo así (commits en `main`):
 7. SEO/a11y: canonical, `og:url`, JSON-LD, jerarquía de headings, títulos con `| Cinerama`.
 8. Skip link + `prefers-reduced-motion` (scroll y autoplay del hero).
 9. README ampliado (stack, setup, comandos, estructura, SEO/a11y).
-10. **Etapa 1**: imágenes TMDB `original`→`w780`/`w1280`, `loading="lazy"`, fallback para
-    `backdrop_path` nulo y `overview` vacío.
-11. **Etapa 2**: `src/lib/tmdb.ts` + `src/lib/movies.ts` (errores accionables, view-model `Movie`,
-    respaldo local en `dev` con banner "Datos de muestra", estados vacíos, fechas normalizadas).
 
 ---
 
 ## 15. Verificación rápida (definition of done)
 
 ```bash
-pnpm check    # esperado: 0 errors, 0 warnings (pueden aparecer "hints" por @lucide/astro)
+pnpm check    # esperado: 0 errors, 0 warnings, 0 hints
 pnpm build    # esperado: 5 page(s) built ... Complete!
 ```
+
+Comprobación puntual del menú móvil (sin tocar el repo): cargar `dist/index.html` en un navegador
+a 390 px y verificar que el botón alterna `aria-expanded`, que `Escape` devuelve el foco y que los
+enlaces del menú cerrado no se alcanzan con Tab.
 
 Si algo de esto no cuadra, revisa la sección 10 (gotchas) antes de tocar código.

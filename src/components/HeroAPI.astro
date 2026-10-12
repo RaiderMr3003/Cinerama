@@ -16,19 +16,6 @@ function truncate(text: string, max = 100) {
 }
 ---
 
-<style is:global>
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-</style>
-
 <script>
   // Detener autoplay del hero para usuarios con prefers-reduced-motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -86,14 +73,14 @@ function truncate(text: string, max = 100) {
 
                 <div class="flex flex-wrap items-center gap-4 mt-2 mb-4 text-sm">
                   <div class="flex items-center space-x-2">
-                    <Calendar size={16} />
-                    <span class="uppercase">{movie.releaseLabel}</span>
+                    <Calendar size={16} class="text-cine-rojo-vivo" aria-hidden="true" />
+                    <span class="uppercase text-zinc-300">{movie.releaseLabel}</span>
                   </div>
                   <div class="flex items-center space-x-2">
-                    <Star size={16} class="text-yellow-400" />
-                    <span>{movie.ratingLabel}</span>
+                    <Star size={16} class="text-cine-oro" aria-hidden="true" />
+                    <span class="text-zinc-300">{movie.ratingLabel}</span>
                   </div>
-                  <span class="bg-blue-600 px-2 py-1 rounded text-xs">
+                  <span class="rounded border border-cine-oro/40 bg-cine-oro/10 px-2 py-1 text-xs font-medium text-cine-oro">
                     {movie.genreLabel}
                   </span>
                 </div>
@@ -103,8 +90,7 @@ function truncate(text: string, max = 100) {
                     href={movie.trailerUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-block bg-yellow-400 text-black font-bold px-6 py-2 rounded-lg"
-                    style="cursor:pointer;"
+                    class="inline-block bg-cine-oro text-black font-bold px-6 py-2 rounded-lg transition-colors duration-200 hover:bg-white focus-visible:outline-black"
                   >
                     Ver Trailer
                   </a>
